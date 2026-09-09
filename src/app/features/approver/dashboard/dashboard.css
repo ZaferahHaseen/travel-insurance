@@ -1,0 +1,486 @@
+:host {
+  display: block;
+}
+
+.dashboard-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* =================================
+   WELCOME
+   ================================= */
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  margin-bottom: 20px;
+}
+
+.eyebrow,
+.section-label {
+  display: block;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1.1px;
+
+  color: #3977bd;
+}
+
+.welcome-section h1 {
+  margin: 6px 0 5px;
+
+  font-size: 25px;
+  font-weight: 750;
+
+  color: #172033;
+}
+
+.welcome-section p {
+  margin: 0;
+
+  font-size: 10px;
+
+  color: #667085;
+}
+
+
+/* =================================
+   ACTION
+   ================================= */
+
+.primary-action {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 10px 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #21639d;
+
+  color: white;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(33, 99, 157, 0.18);
+
+  transition: all 0.18s ease;
+}
+
+.primary-action:hover {
+  transform: translateY(-1px);
+
+  background: #194f82;
+}
+
+.arrow {
+  font-size: 12px;
+}
+
+
+/* =================================
+   STAT CARDS
+   ================================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 13px;
+
+  margin-bottom: 23px;
+}
+
+.stat-card {
+  min-height: 95px;
+
+  padding: 15px;
+
+  background: white;
+
+  border: 1px solid #e4e9ef;
+
+  border-radius: 11px;
+
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.035);
+}
+
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.stat-top > span {
+  font-size: 9px;
+
+  color: #667085;
+}
+
+.stat-icon {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pending-icon {
+  background: #fff4e8;
+  color: #bd701e;
+}
+
+.approved-icon {
+  background: #eaf7f0;
+  color: #277956;
+}
+
+.rejected-icon {
+  background: #fff0ef;
+  color: #c4473e;
+}
+
+.review-icon {
+  background: #edf5fc;
+  color: #28649d;
+}
+
+.stat-card strong {
+  display: block;
+
+  font-size: 21px;
+
+  color: #172033;
+
+  line-height: 1;
+}
+
+.stat-card small {
+  display: block;
+
+  margin-top: 6px;
+
+  font-size: 7.5px;
+
+  color: #98a2b3;
+}
+
+
+/* =================================
+   WORKSPACE
+   ================================= */
+
+.workspace-section {
+  margin-bottom: 16px;
+}
+
+.section-heading {
+  margin-bottom: 11px;
+}
+
+.section-heading h2 {
+  margin: 4px 0 0;
+
+  font-size: 14px;
+
+  color: #172033;
+}
+
+.workspace-card {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 15px;
+
+  padding: 19px;
+
+  min-height: 115px;
+
+  background: white;
+
+  border: 1px solid #e3e8ee;
+
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.03);
+
+  transition: all 0.18s ease;
+}
+
+.workspace-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #c8d9e8;
+
+  box-shadow: 0 8px 23px rgba(16, 24, 40, 0.075);
+}
+
+.main-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #fff4e8;
+
+  color: #bd701e;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.workspace-content {
+  flex: 1;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.workspace-content h3 {
+  margin: 1px 0 6px;
+
+  font-size: 13px;
+
+  color: #172033;
+}
+
+.workspace-content p {
+  margin: 0 0 12px;
+
+  font-size: 8.5px;
+
+  line-height: 1.5;
+
+  color: #667085;
+}
+
+.pending-badge {
+  flex-shrink: 0;
+
+  height: fit-content;
+
+  padding: 6px 9px;
+
+  border-radius: 20px;
+
+  background: #fff4e8;
+
+  color: #a95f14;
+
+  font-size: 7.5px;
+
+  font-weight: 750;
+}
+
+.workspace-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  font-size: 8.5px;
+
+  font-weight: 750;
+
+  color: #28649d;
+}
+
+.workspace-link span {
+  font-size: 12px;
+
+  transition: transform 0.15s ease;
+}
+
+.workspace-card:hover .workspace-link span {
+  transform: translateX(3px);
+}
+
+
+/* =================================
+   PROCESS
+   ================================= */
+
+.process-card {
+  padding: 16px 18px;
+
+  background: white;
+
+  border: 1px solid #e3e8ee;
+
+  border-radius: 11px;
+
+  box-shadow: 0 3px 12px rgba(16, 24, 40, 0.03);
+}
+
+.process-header {
+  margin-bottom: 15px;
+}
+
+.process-header h2 {
+  margin: 4px 0 0;
+
+  font-size: 13px;
+
+  color: #172033;
+}
+
+.process-steps {
+  display: flex;
+  align-items: center;
+}
+
+.process-step {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+.step-number {
+  width: 25px;
+  height: 25px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #edf5fc;
+
+  color: #28649d;
+
+  font-size: 8px;
+
+  font-weight: 800;
+}
+
+.process-step div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.process-step strong {
+  font-size: 8px;
+
+  color: #344054;
+}
+
+.process-step span {
+  font-size: 7px;
+
+  line-height: 1.35;
+
+  color: #98a2b3;
+}
+
+.step-line {
+  width: 25px;
+  height: 1px;
+
+  flex-shrink: 0;
+
+  margin: 0 8px;
+
+  background: #dce3ea;
+}
+
+
+/* =================================
+   RESPONSIVE
+   ================================= */
+
+@media (max-width: 1050px) {
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 750px) {
+
+  .welcome-section {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .title-row {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .process-steps {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 10px;
+  }
+
+  .step-line {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-section h1 {
+    font-size: 21px;
+  }
+
+}

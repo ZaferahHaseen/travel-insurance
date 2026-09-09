@@ -1,0 +1,483 @@
+<div class="app-shell">
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+
+  <aside class="sidebar">
+
+    <!-- BRAND -->
+
+    <div class="sidebar-brand">
+
+      <div class="brand-mark">
+        TS
+      </div>
+
+      <div class="brand-content">
+        <div class="brand-title">
+          TravelSure
+        </div>
+
+        <div class="brand-subtitle">
+          Travel Insurance
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="sidebar-navigation">
+
+      <!-- ADMIN -->
+
+      @if (isAdmin()) {
+
+        <div class="navigation-group">
+
+          <div class="navigation-label">
+            ADMINISTRATION
+          </div>
+
+          <a
+            routerLink="/admin/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="navigation-item">
+
+            <span class="navigation-icon dashboard-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+
+            <span>Dashboard</span>
+
+          </a>
+
+
+          <a
+            routerLink="/admin/user-groups"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </span>
+
+            <span>User Groups</span>
+
+          </a>
+
+
+          <a
+            routerLink="/admin/users"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M4 21a8 8 0 0 1 16 0"></path>
+              </svg>
+            </span>
+
+            <span>Users</span>
+
+          </a>
+
+
+          <a
+            routerLink="/admin/war-geography"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18"></path>
+                <path d="M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9"></path>
+                <path d="M12 3c-2.5 2.5-3.5 5.5-3.5 9s1 6.5 3.5 9"></path>
+              </svg>
+            </span>
+
+            <span>War Geography</span>
+
+          </a>
+
+        </div>
+
+      }
+
+
+      <!-- UNDERWRITER -->
+
+      @if (isUnderwriter()) {
+
+        <div class="navigation-group">
+
+          <div class="navigation-label">
+            UNDERWRITING
+          </div>
+
+
+          <a
+            routerLink="/underwriter/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+
+            <span>Dashboard</span>
+
+          </a>
+
+
+          <a
+            routerLink="/underwriter/quotations"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 2h9l5 5v15H6z"></path>
+                <path d="M14 2v6h6"></path>
+                <path d="M9 13h6"></path>
+                <path d="M9 17h4"></path>
+              </svg>
+            </span>
+
+            <span>Quotations</span>
+
+          </a>
+
+
+          <a
+            routerLink="/underwriter/policies"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </span>
+
+            <span>Policies</span>
+
+          </a>
+
+        </div>
+
+      }
+
+
+      <!-- APPROVER -->
+
+      @if (isApprover()) {
+
+        <div class="navigation-group">
+
+          <div class="navigation-label">
+            APPROVALS
+          </div>
+
+
+          <a
+            routerLink="/approver/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+
+            <span>Dashboard</span>
+
+          </a>
+
+
+          <a
+            routerLink="/approver/inbox"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M3 7l9 6 9-6"></path>
+              </svg>
+            </span>
+
+            <span>Approval Inbox</span>
+
+          </a>
+
+        </div>
+
+      }
+
+
+      <!-- CLIENT -->
+
+      @if (isClient()) {
+
+        <div class="navigation-group">
+
+          <div class="navigation-label">
+            MY INSURANCE
+          </div>
+
+
+          <a
+            routerLink="/client/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </span>
+
+            <span>Dashboard</span>
+
+          </a>
+
+
+          <a
+            routerLink="/client/proposals"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 2h9l5 5v15H6z"></path>
+                <path d="M14 2v6h6"></path>
+                <path d="M9 13h6"></path>
+                <path d="M9 17h5"></path>
+              </svg>
+            </span>
+
+            <span>My Proposals</span>
+
+          </a>
+
+
+          <a
+            routerLink="/client/policies"
+            routerLinkActive="active"
+            class="navigation-item">
+
+            <span class="navigation-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </span>
+
+            <span>My Policies</span>
+
+          </a>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- SIDEBAR FOOTER -->
+
+    <div class="sidebar-footer">
+
+      <div class="profile-card">
+
+        <div class="profile-avatar">
+          {{ getRoleName().charAt(0) }}
+        </div>
+
+        <div class="profile-text">
+
+          <strong>
+            {{ getRoleName() }}
+          </strong>
+
+          <span>
+            {{ getRoleDescription() }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+
+  <div class="main-area">
+
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+      <div class="header-left">
+
+        <button
+          type="button"
+          class="header-icon-button"
+          (click)="goBack()"
+          aria-label="Go back">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+
+        </button>
+
+
+        <div class="header-page-info">
+
+          <span>
+            TRAVELSURE PORTAL
+          </span>
+
+          <h1>
+            {{ getRoleName() }}
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      <div class="header-right">
+
+        <!-- HOME -->
+
+        <button
+          type="button"
+          class="header-action"
+          (click)="goHome()">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 11.5L12 4l9 7.5"></path>
+            <path d="M5 10v10h14V10"></path>
+            <path d="M9 20v-6h6v6"></path>
+          </svg>
+
+          <span>Home</span>
+
+        </button>
+
+
+        <!-- NOTIFICATION -->
+
+        <button
+          type="button"
+          class="notification-button"
+          aria-label="Notifications">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+            <path d="M10 21h4"></path>
+          </svg>
+
+          <span class="notification-dot"></span>
+
+        </button>
+
+
+        <!-- USER -->
+
+        <div class="header-user">
+
+          <div class="header-avatar">
+            {{ getRoleName().charAt(0) }}
+          </div>
+
+          <div class="header-user-text">
+
+            <strong>
+              {{ getRoleName() }}
+            </strong>
+
+            <span>
+              {{ getRoleDescription() }}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="logout()">
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10 17l5-5-5-5"></path>
+            <path d="M15 12H3"></path>
+            <path d="M21 19V5a2 2 0 0 0-2-2h-6"></path>
+          </svg>
+
+          <span>Logout</span>
+
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+
+    <main class="page-content">
+
+      <router-outlet></router-outlet>
+
+    </main>
+
+  </div>
+
+</div>

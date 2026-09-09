@@ -1,0 +1,587 @@
+<div class="user-groups-page">
+
+  <!-- PAGE TOP -->
+
+  <div class="page-header">
+
+    <div class="page-title">
+      <h1>User Groups</h1>
+
+      <p>
+        Create groups and assign authorities for controlled access.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="create-button"
+      (click)="openCreateForm()">
+
+      <lucide-icon
+        [img]="Plus"
+        [size]="17"
+        [strokeWidth]="2.2">
+      </lucide-icon>
+
+      <span>Create Group</span>
+
+    </button>
+
+  </div>
+
+
+  <!-- SEARCH -->
+
+  <div class="toolbar">
+
+    <div class="search-box">
+
+      <lucide-icon
+        [img]="Search"
+        [size]="17"
+        [strokeWidth]="1.9">
+      </lucide-icon>
+
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search user groups..."
+      >
+
+    </div>
+
+  </div>
+
+
+  <!-- GROUP TABLE -->
+
+  <div class="groups-card">
+
+    <div class="table-header">
+
+      <div>
+        <span class="table-title">Groups</span>
+        <span class="table-count">
+          {{ filteredGroups.length }}
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Description</th>
+            <th>Authorities</th>
+            <th>Users</th>
+            <th>Status</th>
+            <th class="actions-column">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (group of filteredGroups; track group.id) {
+
+            <tr>
+
+              <td>
+
+                <div class="group-cell">
+
+                  <div class="group-icon">
+                    <lucide-icon
+                      [img]="ShieldCheck"
+                      [size]="18"
+                      [strokeWidth]="2">
+                    </lucide-icon>
+                  </div>
+
+                  <div class="group-name">
+                    {{ group.name }}
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <span class="description">
+                  {{ group.description }}
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <div class="authority-summary">
+
+                  <span class="authority-count">
+                    {{ group.authorities.length }}
+                  </span>
+
+                  <span>
+                    assigned
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <div class="users-cell">
+
+                  <lucide-icon
+                    [img]="Users"
+                    [size]="16"
+                    [strokeWidth]="1.9">
+                  </lucide-icon>
+
+                  <span>
+                    {{ group.userCount }}
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <span
+                  class="status"
+                  [class.inactive]="group.status === 'Inactive'">
+
+                  <span class="status-dot"></span>
+
+                  {{ group.status }}
+
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <div class="row-actions">
+
+                  <button
+                    type="button"
+                    class="icon-button view"
+                    title="View group"
+                    (click)="viewGroup(group)">
+
+                    <lucide-icon
+                      [img]="Eye"
+                      [size]="17">
+                    </lucide-icon>
+
+                  </button>
+
+                  <button
+                    type="button"
+                    class="icon-button edit"
+                    title="Edit group"
+                    (click)="editGroup(group)">
+
+                    <lucide-icon
+                      [img]="Pencil"
+                      [size]="17">
+                    </lucide-icon>
+
+                  </button>
+
+                  <button
+                    type="button"
+                    class="icon-button delete"
+                    title="Delete group"
+                    (click)="deleteGroup(group)">
+
+                    <lucide-icon
+                      [img]="Trash2"
+                      [size]="17">
+                    </lucide-icon>
+
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          }
+
+          @if (filteredGroups.length === 0) {
+
+            <tr>
+
+              <td colspan="6">
+
+                <div class="empty-state">
+
+                  <div class="empty-icon">
+                    <lucide-icon
+                      [img]="Search"
+                      [size]="22">
+                    </lucide-icon>
+                  </div>
+
+                  <strong>No groups found</strong>
+
+                  <span>
+                    Try changing your search.
+                  </span>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- CREATE / EDIT GROUP -->
+
+@if (showCreateForm) {
+
+  <div
+    class="modal-backdrop"
+    (click)="closeCreateForm()">
+
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            {{ selectedGroup ? 'Edit User Group' : 'Create User Group' }}
+          </h2>
+
+          <p>
+            Define the group and attach the required authorities.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeCreateForm()">
+
+          <lucide-icon
+            [img]="X"
+            [size]="19">
+          </lucide-icon>
+
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <div class="form-field">
+
+          <label for="groupName">
+            Group Name
+          </label>
+
+          <input
+            id="groupName"
+            type="text"
+            [(ngModel)]="newGroup.name"
+            placeholder="Enter group name"
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="groupDescription">
+            Description
+          </label>
+
+          <textarea
+            id="groupDescription"
+            rows="3"
+            [(ngModel)]="newGroup.description"
+            placeholder="Enter a short description">
+          </textarea>
+
+        </div>
+
+
+        <div class="authority-section">
+
+          <div class="authority-heading">
+
+            <div>
+              <label>Authorities</label>
+
+              <span>
+                Select the permissions this group can access.
+              </span>
+            </div>
+
+            <span class="selected-count">
+              {{ newGroup.authorities.length }} selected
+            </span>
+
+          </div>
+
+
+          <div class="authority-grid">
+
+            @for (authority of authorities; track authority) {
+
+              <button
+                type="button"
+                class="authority-option"
+                [class.selected]="isAuthoritySelected(authority)"
+                (click)="toggleAuthority(authority)">
+
+                <span class="checkbox">
+
+                  @if (isAuthoritySelected(authority)) {
+
+                    <lucide-icon
+                      [img]="Check"
+                      [size]="14">
+                    </lucide-icon>
+
+                  }
+
+                </span>
+
+                <span>
+                  {{ authority }}
+                </span>
+
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="closeCreateForm()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="button"
+          class="save-button"
+          [disabled]="!newGroup.name.trim()"
+          (click)="createGroup()">
+
+          <lucide-icon
+            [img]="Check"
+            [size]="16">
+          </lucide-icon>
+
+          {{ selectedGroup ? 'Save Changes' : 'Create Group' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+
+<!-- VIEW GROUP -->
+
+@if (showViewModal && selectedGroup) {
+
+  <div
+    class="modal-backdrop"
+    (click)="closeViewModal()">
+
+    <div
+      class="modal view-modal"
+      (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+
+        <div>
+
+          <div class="view-group-title">
+
+            <div class="view-icon">
+
+              <lucide-icon
+                [img]="ShieldCheck"
+                [size]="20">
+              </lucide-icon>
+
+            </div>
+
+            <div>
+
+              <h2>
+                {{ selectedGroup.name }}
+              </h2>
+
+              <span class="view-status">
+                {{ selectedGroup.status }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          (click)="closeViewModal()">
+
+          <lucide-icon
+            [img]="X"
+            [size]="19">
+          </lucide-icon>
+
+        </button>
+
+      </div>
+
+
+      <div class="view-content">
+
+        <div class="detail-block">
+
+          <span class="detail-label">
+            Description
+          </span>
+
+          <p>
+            {{ selectedGroup.description }}
+          </p>
+
+        </div>
+
+
+        <div class="detail-row">
+
+          <div class="detail-stat">
+
+            <span>Users</span>
+
+            <strong>
+              {{ selectedGroup.userCount }}
+            </strong>
+
+          </div>
+
+          <div class="detail-stat">
+
+            <span>Authorities</span>
+
+            <strong>
+              {{ selectedGroup.authorities.length }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="attached-authorities">
+
+          <span class="detail-label">
+            Attached Authorities
+          </span>
+
+          <div class="authority-tags">
+
+            @for (
+              authority of selectedGroup.authorities;
+              track authority
+            ) {
+
+              <span class="authority-tag">
+                {{ authority }}
+              </span>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="closeViewModal()">
+
+          Close
+
+        </button>
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="closeViewModal(); editGroup(selectedGroup!)">
+
+          <lucide-icon
+            [img]="Pencil"
+            [size]="16">
+          </lucide-icon>
+
+          Edit Group
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}

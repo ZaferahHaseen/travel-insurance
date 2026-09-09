@@ -1,0 +1,612 @@
+<main class="content">
+
+  <!-- ================= PAGE INTRO ================= -->
+
+  <section class="page-intro">
+
+    <div>
+      <span class="section-kicker">
+        ACCESS CONTROL
+      </span>
+
+      <h2>Users</h2>
+
+      <p>
+        Create users, map groups and manage user-level permissions.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="create-user-button"
+      (click)="openCreateForm()">
+
+      <span>+</span>
+      Create User
+
+    </button>
+
+  </section>
+
+
+  <!-- ================= SUMMARY ================= -->
+
+  <section class="summary-row">
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        ♙
+      </div>
+
+      <div>
+        <span>Total Users</span>
+        <strong>{{ users.length }}</strong>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div>
+        <span>Active Users</span>
+        <strong>{{ activeUsers }}</strong>
+      </div>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        ▦
+      </div>
+
+      <div>
+        <span>Groups</span>
+        <strong>{{ groups.length }}</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= USER LIST ================= -->
+
+  <section class="users-card">
+
+    <div class="card-toolbar">
+
+      <div>
+
+        <h3>System Users</h3>
+
+        <span>
+          {{ filteredUsers.length }} users displayed
+        </span>
+
+      </div>
+
+
+      <div class="search-box">
+
+        <span>⌕</span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          placeholder="Search username, email or group..." />
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>USER</th>
+            <th>USERNAME</th>
+            <th>GROUP</th>
+            <th>STATUS</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+
+
+        <tbody>
+
+          <tr *ngFor="let user of filteredUsers">
+
+            <!-- USER -->
+
+            <td>
+
+              <div class="user-cell">
+
+                <div class="user-avatar">
+                  {{ user.fullName.charAt(0) }}
+                </div>
+
+                <div>
+
+                  <strong>
+                    {{ user.fullName }}
+                  </strong>
+
+                  <span>
+                    {{ user.email }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- USERNAME -->
+
+            <td>
+
+              <span class="username">
+                {{ user.username }}
+              </span>
+
+            </td>
+
+
+            <!-- GROUP -->
+
+            <td>
+
+              <span class="group-badge">
+                {{ user.group }}
+              </span>
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td>
+
+              <button
+                type="button"
+                class="status"
+                [class.inactive]="user.status === 'INACTIVE'"
+                (click)="toggleUserStatus(user)">
+
+                <span></span>
+
+                {{ user.status }}
+
+              </button>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td>
+
+              <div class="action-buttons">
+
+                <button
+                  type="button"
+                  (click)="viewUser(user)">
+
+                  View
+
+                </button>
+
+                <button
+                  type="button"
+                  (click)="mapGroup(user)">
+
+                  Map Group
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+
+          <!-- EMPTY -->
+
+          <tr *ngIf="filteredUsers.length === 0">
+
+            <td
+              colspan="5"
+              class="empty-row">
+
+              <strong>No users found</strong>
+
+              <span>
+                Try another search.
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= CREATE USER ================= -->
+
+  <section
+    class="create-card"
+    *ngIf="showCreateForm">
+
+    <div class="create-header">
+
+      <div>
+
+        <span class="section-kicker">
+          NEW USER
+        </span>
+
+        <h3>Create User</h3>
+
+        <p>
+          Enter the user's account details and assign an initial group.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeCreateForm()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <!-- USER DETAILS -->
+
+    <div class="form-section">
+
+      <h4>User Details</h4>
+
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>
+            Username <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="username"
+            placeholder="e.g. uw.ravi" />
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Email <span>*</span>
+          </label>
+
+          <input
+            type="email"
+            [(ngModel)]="email"
+            placeholder="name@company.com" />
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Full Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="fullName"
+            placeholder="Enter full name" />
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Temporary Password <span>*</span>
+          </label>
+
+          <input
+            type="password"
+            [(ngModel)]="password"
+            placeholder="Minimum 12 characters" />
+
+          <small [class.valid]="passwordValid">
+
+            {{ passwordValid
+              ? 'Password meets policy'
+              : '12+ chars, upper, lower, number & special character'
+            }}
+
+          </small>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            User Group <span>*</span>
+          </label>
+
+          <select [(ngModel)]="selectedGroup">
+
+            <option value="">
+              Select group
+            </option>
+
+            <option
+              *ngFor="let group of groups"
+              [value]="group.code">
+
+              {{ group.name }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Status
+          </label>
+
+          <select [(ngModel)]="status">
+
+            <option value="ACTIVE">
+              Active
+            </option>
+
+            <option value="INACTIVE">
+              Inactive
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- OPTIONAL AUTHORITIES -->
+
+    <div class="form-section">
+
+      <div class="authority-title">
+
+        <div>
+
+          <h4>
+            Optional User-Level Permissions
+          </h4>
+
+          <p>
+            Usually left empty. Grants add permissions and revokes remove
+            group permissions for this user only.
+          </p>
+
+        </div>
+
+        <span>
+          {{ selectedGrants.length + selectedRevokes.length }}
+          selected
+        </span>
+
+      </div>
+
+
+      <div class="authority-grid">
+
+        <button
+          type="button"
+          *ngFor="let authority of authorities"
+          class="permission"
+          [class.selected]="authority.selected"
+          (click)="toggleAuthority(authority)">
+
+          <div class="permission-check">
+
+            <span *ngIf="authority.selected">
+              ✓
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              {{ authority.name }}
+            </strong>
+
+            <span>
+              {{ authority.code }}
+            </span>
+
+            <small
+              [class.revoke]="authority.type === 'REVOKE'">
+
+              {{ authority.type }}
+
+            </small>
+
+          </div>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="form-footer">
+
+      <span>
+        * Required
+      </span>
+
+
+      <div>
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="closeCreateForm()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          type="button"
+          class="save-button"
+          [disabled]="
+            !username.trim() ||
+            !email.trim() ||
+            !fullName.trim() ||
+            !passwordValid ||
+            !selectedGroup
+          "
+          (click)="createUser()">
+
+          Create User
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= USER DETAILS ================= -->
+
+  <section
+    class="details-card"
+    *ngIf="showDetails && selectedUser">
+
+    <div class="details-header">
+
+      <div>
+
+        <span class="section-kicker">
+          USER DETAILS
+        </span>
+
+        <h3>
+          {{ selectedUser.fullName }}
+        </h3>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closeDetails()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <div class="details-grid">
+
+      <div>
+        <span>Username</span>
+        <strong>{{ selectedUser.username }}</strong>
+      </div>
+
+      <div>
+        <span>Email</span>
+        <strong>{{ selectedUser.email }}</strong>
+      </div>
+
+      <div>
+        <span>Group</span>
+        <strong>{{ selectedUser.group }}</strong>
+      </div>
+
+      <div>
+        <span>Status</span>
+        <strong>{{ selectedUser.status }}</strong>
+      </div>
+
+    </div>
+
+
+    <div class="details-authorities">
+
+      <h4>
+        User-Level Grants / Revokes
+      </h4>
+
+      <div
+        *ngIf="selectedUser.authorities.length === 0"
+        class="no-permissions">
+
+        No user-level overrides configured.
+
+      </div>
+
+      <span
+        *ngFor="let authority of selectedUser.authorities"
+        class="authority-tag">
+
+        {{ authority }}
+
+      </span>
+
+    </div>
+
+  </section>
+
+</main>

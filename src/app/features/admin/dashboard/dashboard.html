@@ -1,0 +1,226 @@
+<div class="admin-dashboard">
+
+  <!-- SUMMARY CARDS -->
+  <section class="summary-grid">
+
+    <button
+      type="button"
+      class="summary-card users-summary"
+      (click)="goToUsers()">
+
+      <div class="summary-content">
+        <span class="summary-label">Users</span>
+        <strong class="summary-number">24</strong>
+        <span class="summary-description">Registered users</span>
+      </div>
+
+      <div class="summary-icon">
+        <lucide-icon
+          [img]="UsersIcon"
+          [size]="22"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card groups-summary"
+      (click)="goToUserGroups()">
+
+      <div class="summary-content">
+        <span class="summary-label">User Groups</span>
+        <strong class="summary-number">06</strong>
+        <span class="summary-description">Access groups</span>
+      </div>
+
+      <div class="summary-icon">
+        <lucide-icon
+          [img]="GroupIcon"
+          [size]="22"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card active-summary"
+      (click)="goToUsers()">
+
+      <div class="summary-content">
+        <span class="summary-label">Active Users</span>
+        <strong class="summary-number">21</strong>
+        <span class="summary-description">Currently active</span>
+      </div>
+
+      <div class="summary-icon">
+        <lucide-icon
+          [img]="UserCheckIcon"
+          [size]="22"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card geography-summary"
+      (click)="goToWarGeography()">
+
+      <div class="summary-content">
+        <span class="summary-label">Risk Countries</span>
+        <strong class="summary-number">12</strong>
+        <span class="summary-description">Risk records</span>
+      </div>
+
+      <div class="summary-icon">
+        <lucide-icon
+          [img]="GlobeIcon"
+          [size]="22"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+    </button>
+
+  </section>
+
+
+  <!-- ADMINISTRATION HEADER -->
+  <div class="administration-row">
+
+    <h2>Administration</h2>
+
+    <button
+      type="button"
+      class="new-user-button"
+      (click)="createUser()">
+
+      <span class="button-icon">+</span>
+      New User
+
+    </button>
+
+  </div>
+
+
+  <!-- ADMINISTRATION CARDS -->
+  <section class="admin-grid">
+
+    <!-- USER GROUPS -->
+    <article
+      class="admin-card groups-card"
+      (click)="goToUserGroups()">
+
+      <div class="card-icon">
+        <lucide-icon
+          [img]="GroupIcon"
+          [size]="25"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+      <div class="card-content">
+
+        <h2>User Groups</h2>
+
+        <p>
+          Create user groups and attach authorities for controlled access.
+        </p>
+
+        <button
+          type="button"
+          class="card-action"
+          (click)="goToUserGroups(); $event.stopPropagation()">
+
+          Manage groups
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- USERS -->
+    <article
+      class="admin-card users-card"
+      (click)="goToUsers()">
+
+      <div class="card-icon">
+        <lucide-icon
+          [img]="UsersIcon"
+          [size]="25"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+      <div class="card-content">
+
+        <h2>Users</h2>
+
+        <p>
+          Create users, map groups and manage optional grants or revokes.
+        </p>
+
+        <button
+          type="button"
+          class="card-action"
+          (click)="goToUsers(); $event.stopPropagation()">
+
+          Manage users
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- WAR GEOGRAPHY -->
+    <article
+      class="admin-card geography-card"
+      (click)="goToWarGeography()">
+
+      <div class="card-icon">
+        <lucide-icon
+          [img]="GlobeIcon"
+          [size]="25"
+          [strokeWidth]="2">
+        </lucide-icon>
+      </div>
+
+      <div class="card-content">
+
+        <h2>War Geography</h2>
+
+        <p>
+          Manage geographical risk information used for travel insurance.
+        </p>
+
+        <button
+          type="button"
+          class="card-action"
+          (click)="goToWarGeography(); $event.stopPropagation()">
+
+          Manage geography
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+</div>

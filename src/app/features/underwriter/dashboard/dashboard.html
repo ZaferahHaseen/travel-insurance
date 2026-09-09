@@ -1,0 +1,458 @@
+\<div class="dashboard-page">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <div class="dashboard-top">
+
+    <div class="title-area">
+
+      <span class="eyebrow">
+        UNDERWRITING WORKSPACE
+      </span>
+
+      <h1>
+        Underwriter Overview
+      </h1>
+
+      <p>
+        A complete view of your current underwriting activity and workload.
+      </p>
+
+    </div>
+
+    <!-- New quotation stays in the header -->
+    <button
+      type="button"
+      class="new-quotation-btn"
+      (click)="createQuotation()">
+
+      <span class="plus-icon">+</span>
+
+      <span>
+        New Quotation
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUMMARY CARDS
+       ===================================================== -->
+
+  <section class="summary-grid">
+
+    <!-- TOTAL -->
+
+    <button
+      type="button"
+      class="summary-card"
+      (click)="viewQuotations()">
+
+      <div class="summary-top">
+
+        <div class="summary-icon quotation-icon">
+          ▤
+        </div>
+
+        <span class="summary-label">
+          TOTAL
+        </span>
+
+      </div>
+
+      <div class="summary-value">
+        {{ totalQuotations }}
+      </div>
+
+      <div class="summary-title">
+        Total Quotations
+      </div>
+
+      <div class="summary-link">
+        View all →
+      </div>
+
+    </button>
+
+
+    <!-- PENDING -->
+
+    <button
+      type="button"
+      class="summary-card"
+      (click)="viewPendingQuotations()">
+
+      <div class="summary-top">
+
+        <div class="summary-icon pending-icon">
+          ◷
+        </div>
+
+        <span class="summary-label">
+          ATTENTION
+        </span>
+
+      </div>
+
+      <div class="summary-value">
+        {{ pendingQuotations }}
+      </div>
+
+      <div class="summary-title">
+        Pending Quotations
+      </div>
+
+      <div class="summary-link">
+        Review pending →
+      </div>
+
+    </button>
+
+
+    <!-- IN PROGRESS -->
+
+    <button
+      type="button"
+      class="summary-card"
+      (click)="viewQuotations()">
+
+      <div class="summary-top">
+
+        <div class="summary-icon progress-icon">
+          ◌
+        </div>
+
+        <span class="summary-label">
+          ACTIVE
+        </span>
+
+      </div>
+
+      <div class="summary-value">
+        {{ inProgressQuotations }}
+      </div>
+
+      <div class="summary-title">
+        In Progress
+      </div>
+
+      <div class="summary-link">
+        Continue work →
+      </div>
+
+    </button>
+
+
+    <!-- POLICIES -->
+
+    <button
+      type="button"
+      class="summary-card"
+      (click)="viewPolicies()">
+
+      <div class="summary-top">
+
+        <div class="summary-icon policy-icon">
+          ▥
+        </div>
+
+        <span class="summary-label">
+          POLICIES
+        </span>
+
+      </div>
+
+      <div class="summary-value">
+        {{ totalPolicies }}
+      </div>
+
+      <div class="summary-title">
+        My Policies
+      </div>
+
+      <div class="summary-link">
+        View policies →
+      </div>
+
+    </button>
+
+  </section>
+
+
+  <!-- =====================================================
+       ANALYTICS
+       ===================================================== -->
+
+  <section class="analytics-grid">
+
+
+    <!-- ===================================================
+         QUOTATION ACTIVITY
+         =================================================== -->
+
+    <div class="dashboard-card activity-card">
+
+      <div class="card-header">
+
+        <div class="card-heading">
+
+          <span class="section-label">
+            ACTIVITY
+          </span>
+
+          <h2>
+            Quotation Activity
+          </h2>
+
+          <p>
+            Quotations received across the selected period.
+          </p>
+
+        </div>
+
+
+        <div class="activity-actions">
+
+          <!-- DATE FILTER -->
+
+          <select
+            class="period-select"
+            [value]="selectedPeriod"
+            (change)="changePeriod($any($event.target).value)">
+
+            <option
+              *ngFor="let period of periods"
+              [value]="period">
+
+              {{ period }}
+
+            </option>
+
+          </select>
+
+
+          <button
+            type="button"
+            class="small-action"
+            (click)="viewQuotations()">
+
+            View Quotations →
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- GRAPH -->
+
+      <div class="activity-content">
+
+        <!-- Y AXIS -->
+
+        <div class="chart-y-axis">
+
+          <span>10</span>
+          <span>8</span>
+          <span>6</span>
+          <span>4</span>
+          <span>2</span>
+          <span>0</span>
+
+        </div>
+
+
+        <!-- GRAPH AREA -->
+
+        <div class="chart-area">
+
+          <!-- Horizontal grid lines -->
+
+          <div class="chart-grid-lines">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+          </div>
+
+
+          <!-- BAR CHART -->
+
+          <div class="bar-chart">
+
+            <div
+              class="bar-column"
+              *ngFor="let activity of quotationActivity">
+
+              <div class="bar-value">
+                {{ activity.quotations }}
+              </div>
+
+              <div class="bar-track">
+
+                <div
+                  class="bar-fill"
+                  [style.height.%]="getActivityHeight(activity.quotations)">
+                </div>
+
+              </div>
+
+              <span class="bar-label">
+                {{ activity.day }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         CURRENT WORKLOAD
+         =================================================== -->
+
+    <div class="dashboard-card workload-card">
+
+      <div class="card-header">
+
+        <div class="card-heading">
+
+          <span class="section-label">
+            WORKLOAD
+          </span>
+
+          <h2>
+            Current Workload
+          </h2>
+
+          <p>
+            Distribution of your current quotations.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="workload-content">
+
+
+        <!-- =================================================
+             DONUT CHART
+             ================================================= -->
+
+        <div class="workload-visual">
+
+          <div
+            class="donut"
+            [style.background]="'conic-gradient(' + workloadGradient + ')'">
+
+            <div class="donut-inner">
+
+              <strong>
+                {{ totalQuotations }}
+              </strong>
+
+              <span>
+                Total
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LEGEND WITH COUNTS
+             ================================================= -->
+
+        <div class="workload-legend">
+
+
+          <!-- PENDING -->
+
+          <div class="legend-item">
+
+            <div class="legend-left">
+
+              <span class="legend-dot pending"></span>
+
+              <span class="legend-text">
+                Pending
+              </span>
+
+            </div>
+
+            <strong>
+              {{ pendingQuotations }}
+            </strong>
+
+          </div>
+
+
+          <!-- IN PROGRESS -->
+
+          <div class="legend-item">
+
+            <div class="legend-left">
+
+              <span class="legend-dot progress"></span>
+
+              <span class="legend-text">
+                In Progress
+              </span>
+
+            </div>
+
+            <strong>
+              {{ inProgressQuotations }}
+            </strong>
+
+          </div>
+
+
+          <!-- COMPLETED -->
+
+          <div class="legend-item">
+
+            <div class="legend-left">
+
+              <span class="legend-dot completed"></span>
+
+              <span class="legend-text">
+                Completed
+              </span>
+
+            </div>
+
+            <strong>
+              {{ completedQuotations }}
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

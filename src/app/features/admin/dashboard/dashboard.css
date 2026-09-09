@@ -1,0 +1,463 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================
+   PAGE
+   ========================================= */
+
+.admin-dashboard {
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+
+  padding: 18px 24px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   SUMMARY
+   ========================================= */
+
+.summary-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  flex-shrink: 0;
+}
+
+
+.summary-card {
+  min-width: 0;
+  min-height: 128px;
+
+  box-sizing: border-box;
+
+  padding: 18px 20px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  text-align: left;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e7ee;
+  border-radius: 13px;
+
+  box-shadow: 0 3px 14px rgba(16, 24, 40, 0.045);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+
+.summary-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #c7d7e6;
+
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+}
+
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+
+.summary-label {
+  font-size: 12px;
+  font-weight: 650;
+
+  color: #667085;
+}
+
+
+.summary-number {
+  margin-top: 12px;
+
+  font-size: 30px;
+  line-height: 1;
+
+  font-weight: 750;
+
+  color: #172033;
+}
+
+
+.summary-description {
+  margin-top: 9px;
+
+  font-size: 10.5px;
+
+  color: #98a2b3;
+}
+
+
+.summary-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+}
+
+
+/* SUMMARY ICON COLORS */
+
+.users-summary .summary-icon {
+  background: #eaf4fc;
+  color: #286ca6;
+}
+
+.groups-summary .summary-icon {
+  background: #f0ebff;
+  color: #7154b3;
+}
+
+.active-summary .summary-icon {
+  background: #eaf7f0;
+  color: #277956;
+}
+
+.geography-summary .summary-icon {
+  background: #fff3e4;
+  color: #c16a12;
+}
+
+
+/* =========================================
+   ADMINISTRATION ROW
+   ========================================= */
+
+.administration-row {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-shrink: 0;
+}
+
+
+.administration-row h2 {
+  margin: 0;
+
+  font-size: 17px;
+  font-weight: 750;
+
+  color: #172033;
+}
+
+
+/* =========================================
+   NEW USER
+   ========================================= */
+
+.new-user-button {
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 0 16px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #21639d;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(33, 99, 157, 0.18);
+
+  transition: all 0.18s ease;
+}
+
+
+.new-user-button:hover {
+  background: #194f82;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 7px 18px rgba(33, 99, 157, 0.22);
+}
+
+
+.button-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+
+/* =========================================
+   ADMINISTRATION CARDS
+   ========================================= */
+
+.admin-grid {
+  width: 100%;
+
+  flex: 1;
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* =========================================
+   CARD
+   ========================================= */
+
+.admin-card {
+  min-width: 0;
+  min-height: 0;
+
+  box-sizing: border-box;
+
+  padding: 21px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e7ee;
+  border-radius: 13px;
+
+  box-shadow: 0 3px 14px rgba(16, 24, 40, 0.045);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+
+.admin-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #c7d7e6;
+
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.08);
+}
+
+
+/* =========================================
+   CARD ICON
+   ========================================= */
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 17px;
+
+  border-radius: 12px;
+}
+
+
+.groups-card .card-icon {
+  background: #f0ebff;
+  color: #7154b3;
+}
+
+
+.users-card .card-icon {
+  background: #eaf4fc;
+  color: #286ca6;
+}
+
+
+.geography-card .card-icon {
+  background: #fff3e4;
+  color: #c16a12;
+}
+
+
+/* =========================================
+   CARD CONTENT
+   ========================================= */
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.card-content h2 {
+  margin: 0 0 9px;
+
+  font-size: 18px;
+  line-height: 1.25;
+
+  font-weight: 750;
+
+  color: #172033;
+}
+
+
+.card-content p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.55;
+
+  color: #667085;
+}
+
+
+.card-action {
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: auto;
+  padding: 15px 0 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #21639d;
+
+  font-size: 11.5px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.card-action span {
+  font-size: 17px;
+
+  transition: transform 0.15s ease;
+}
+
+
+.admin-card:hover .card-action span {
+  transform: translateX(3px);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .admin-dashboard {
+    height: auto;
+
+    padding: 16px;
+
+    overflow: visible;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    min-height: 120px;
+  }
+
+  .admin-card {
+    min-height: 210px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .admin-dashboard {
+    padding: 14px;
+  }
+
+  .administration-row h2 {
+    font-size: 16px;
+  }
+
+  .summary-card {
+    padding: 17px;
+  }
+
+  .summary-number {
+    font-size: 28px;
+  }
+
+}

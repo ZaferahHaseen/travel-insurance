@@ -1,0 +1,262 @@
+<div class="war-geography-page">
+
+
+  <!-- ================= PAGE HEADING ================= -->
+
+  <div class="page-heading">
+
+    <div>
+
+      <span class="eyebrow">
+        RISK CONFIGURATION
+      </span>
+
+      <h2>
+        War Geography
+      </h2>
+
+      <p>
+        Select geographical areas that should be classified as war-risk regions.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="save-button"
+      (click)="saveRegions()">
+
+      <span>✓</span>
+
+      Save Regions
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ================= MAIN AREA ================= -->
+
+  <div class="geography-layout">
+
+
+    <!-- ================= MAP ================= -->
+
+    <section class="map-card">
+
+
+      <div class="card-header">
+
+        <div>
+
+          <h3>
+            World Risk Map
+          </h3>
+
+          <p>
+            Click a country marker to add or remove it from the war-risk regions.
+          </p>
+
+        </div>
+
+
+        <div class="map-legend">
+
+          <span>
+
+            <i class="legend-dot selected"></i>
+
+            Selected
+
+          </span>
+
+
+          <span>
+
+            <i class="legend-dot normal"></i>
+
+            Available
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MAP -->
+
+      <div class="map-container">
+
+        <div
+          id="war-map"
+          class="war-map">
+        </div>
+
+
+        <div class="map-instruction">
+
+          <span>⌖</span>
+
+          Click a country marker to select it
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ================= SELECTED REGIONS ================= -->
+
+    <section class="regions-card">
+
+
+      <div class="regions-header">
+
+        <div>
+
+          <span class="section-label">
+            WAR-RISK CONFIGURATION
+          </span>
+
+          <h3>
+            Selected Regions
+          </h3>
+
+          <p>
+            Countries currently classified as war-risk.
+          </p>
+
+        </div>
+
+
+        <div class="count-badge">
+          {{ selectedRegions.length }}
+        </div>
+
+      </div>
+
+
+
+      <!-- SELECTED COUNTRIES -->
+
+      <div
+        class="selected-regions"
+        *ngIf="selectedRegions.length > 0">
+
+
+        <div
+          class="region-item"
+          *ngFor="let region of selectedRegions">
+
+
+          <div class="region-info">
+
+
+            <div class="country-icon">
+              ●
+            </div>
+
+
+            <div>
+
+              <strong>
+                {{ region.name }}
+              </strong>
+
+              <span>
+                {{ region.code }}
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+          <button
+            type="button"
+            class="remove-button"
+            (click)="removeRegion(region.code)"
+            title="Remove region">
+
+            ×
+
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- EMPTY STATE -->
+
+      <div
+        class="empty-regions"
+        *ngIf="selectedRegions.length === 0">
+
+
+        <div class="empty-icon">
+          ◇
+        </div>
+
+
+        <strong>
+          No regions selected
+        </strong>
+
+
+        <span>
+          Select countries from the map to add them here.
+        </span>
+
+
+      </div>
+
+
+    </section>
+
+
+  </div>
+
+
+
+  <!-- ================= INFORMATION ================= -->
+
+  <section class="criteria-card">
+
+
+    <div class="criteria-icon">
+      i
+    </div>
+
+
+    <div>
+
+      <strong>
+        War-risk classification
+      </strong>
+
+
+      <p>
+        Administrators can classify geographical areas according to the
+        organisation's underwriting rules, security assessments, travel
+        advisories, conflict activity and internal risk policies.
+      </p>
+
+    </div>
+
+
+  </section>
+
+
+</div>

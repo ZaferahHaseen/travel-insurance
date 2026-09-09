@@ -1,0 +1,549 @@
+<div class="policies-page">
+
+  <!-- =========================
+       PAGE INTRO
+       ========================= -->
+
+  <section class="page-intro">
+
+    <div>
+      <span class="section-kicker">
+        UNDERWRITING
+      </span>
+
+      <h2>My Policies</h2>
+
+      <p>
+        View policies created from your quotations and monitor their current status.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="new-quotation-button"
+      (click)="createQuotation()">
+
+      <span>+</span>
+      New Quotation
+
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       SUMMARY CARDS
+       ========================= -->
+
+  <section class="summary-grid">
+
+    <button
+      type="button"
+      class="summary-card"
+      [class.selected]="selectedFilter === 'ALL'"
+      (click)="setFilter('ALL')">
+
+      <div class="summary-icon total-icon">
+        <span>▣</span>
+      </div>
+
+      <div class="summary-content">
+        <span>Total Policies</span>
+        <strong>{{ policies.length }}</strong>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card"
+      [class.selected]="selectedFilter === 'ISSUED'"
+      (click)="setFilter('ISSUED')">
+
+      <div class="summary-icon issued-icon">
+        <span>✓</span>
+      </div>
+
+      <div class="summary-content">
+        <span>Issued</span>
+        <strong>{{ issuedPolicies }}</strong>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card"
+      [class.selected]="selectedFilter === 'PENDING_APPROVAL'"
+      (click)="setFilter('PENDING_APPROVAL')">
+
+      <div class="summary-icon pending-icon">
+        <span>!</span>
+      </div>
+
+      <div class="summary-content">
+        <span>Pending Approval</span>
+        <strong>{{ pendingPolicies }}</strong>
+      </div>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="summary-card"
+      [class.selected]="selectedFilter === 'REJECTED'"
+      (click)="setFilter('REJECTED')">
+
+      <div class="summary-icon rejected-icon">
+        <span>×</span>
+      </div>
+
+      <div class="summary-content">
+        <span>Rejected</span>
+        <strong>{{ rejectedPolicies }}</strong>
+      </div>
+
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       POLICY LIST
+       ========================= -->
+
+  <section class="policies-card">
+
+    <div class="card-toolbar">
+
+      <div>
+        <h3>Policy Records</h3>
+
+        <span>
+          {{ filteredPolicies.length }} policies displayed
+        </span>
+      </div>
+
+
+      <div class="toolbar-right">
+
+        <div class="search-box">
+
+          <span>⌕</span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search policy, quotation or traveller..." />
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FILTER BAR -->
+
+    <div class="filter-bar">
+
+      <button
+        type="button"
+        [class.active]="selectedFilter === 'ALL'"
+        (click)="setFilter('ALL')">
+
+        All
+      </button>
+
+      <button
+        type="button"
+        [class.active]="selectedFilter === 'ISSUED'"
+        (click)="setFilter('ISSUED')">
+
+        Issued
+      </button>
+
+      <button
+        type="button"
+        [class.active]="selectedFilter === 'PENDING_APPROVAL'"
+        (click)="setFilter('PENDING_APPROVAL')">
+
+        Pending Approval
+      </button>
+
+      <button
+        type="button"
+        [class.active]="selectedFilter === 'REJECTED'"
+        (click)="setFilter('REJECTED')">
+
+        Rejected
+      </button>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>POLICY</th>
+            <th>TRAVELLER</th>
+            <th>DESTINATION</th>
+            <th>TRAVEL PERIOD</th>
+            <th>COVER TYPE</th>
+            <th>PREMIUM</th>
+            <th>STATUS</th>
+            <th>ACTION</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr *ngFor="let policy of filteredPolicies">
+
+            <!-- POLICY -->
+
+            <td>
+
+              <div class="policy-cell">
+
+                <div class="policy-icon">
+                  PL
+                </div>
+
+                <div>
+                  <strong>
+                    {{ policy.policyNumber }}
+                  </strong>
+
+                  <span>
+                    {{ policy.quotationNumber }}
+                  </span>
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- TRAVELLER -->
+
+            <td>
+
+              <div class="traveller-cell">
+
+                <strong>
+                  {{ policy.travellerName }}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <!-- DESTINATION -->
+
+            <td>
+
+              <div class="destination-cell">
+
+                <strong>
+                  {{ policy.destinationCity }}
+                </strong>
+
+                <span>
+                  {{ policy.destinationCountry }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- TRAVEL PERIOD -->
+
+            <td>
+
+              <div class="date-cell">
+
+                <strong>
+                  {{ formatDate(policy.travelStartDate) }}
+                </strong>
+
+                <span>
+                  to {{ formatDate(policy.travelEndDate) }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- COVER -->
+
+            <td>
+
+              <span class="cover-badge">
+                {{ policy.coverType }}
+              </span>
+
+            </td>
+
+
+            <!-- PREMIUM -->
+
+            <td>
+
+              <strong class="premium">
+                {{ formatAmount(policy.premium, policy.currency) }}
+              </strong>
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span
+                class="status-badge"
+                [class.issued]="policy.status === 'ISSUED'"
+                [class.pending]="policy.status === 'PENDING_APPROVAL'"
+                [class.rejected]="policy.status === 'REJECTED'">
+
+                <span class="status-dot"></span>
+
+                {{ getStatusLabel(policy.status) }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ACTION -->
+
+            <td>
+
+              <button
+                type="button"
+                class="view-button"
+                (click)="viewPolicy(policy)">
+
+                View
+
+              </button>
+
+            </td>
+
+          </tr>
+
+
+          <!-- EMPTY STATE -->
+
+          <tr *ngIf="filteredPolicies.length === 0">
+
+            <td
+              colspan="8"
+              class="empty-row">
+
+              <div class="empty-icon">
+                ◫
+              </div>
+
+              <strong>
+                No policies found
+              </strong>
+
+              <span>
+                Try changing the search or status filter.
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       POLICY DETAILS
+       ========================= -->
+
+  <section
+    class="details-card"
+    *ngIf="selectedPolicy">
+
+    <div class="details-header">
+
+      <div>
+
+        <span class="section-kicker">
+          POLICY DETAILS
+        </span>
+
+        <h3>
+          {{ selectedPolicy.policyNumber }}
+        </h3>
+
+        <p>
+          Created from quotation {{ selectedPolicy.quotationNumber }}
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="closePolicy()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <div class="details-body">
+
+      <div class="detail-block">
+
+        <span>Traveller</span>
+        <strong>{{ selectedPolicy.travellerName }}</strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Destination</span>
+        <strong>
+          {{ selectedPolicy.destinationCity }},
+          {{ selectedPolicy.destinationCountry }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Travel Period</span>
+        <strong>
+          {{ formatDate(selectedPolicy.travelStartDate) }}
+          -
+          {{ formatDate(selectedPolicy.travelEndDate) }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Cover Type</span>
+        <strong>{{ selectedPolicy.coverType }}</strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Sum Insured</span>
+        <strong>
+          {{ formatAmount(
+            selectedPolicy.sumInsured,
+            selectedPolicy.currency
+          ) }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Premium</span>
+        <strong>
+          {{ formatAmount(
+            selectedPolicy.premium,
+            selectedPolicy.currency
+          ) }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Policy Status</span>
+
+        <span
+          class="status-badge detail-status"
+          [class.issued]="selectedPolicy.status === 'ISSUED'"
+          [class.pending]="selectedPolicy.status === 'PENDING_APPROVAL'"
+          [class.rejected]="selectedPolicy.status === 'REJECTED'">
+
+          <span class="status-dot"></span>
+
+          {{ getStatusLabel(selectedPolicy.status) }}
+
+        </span>
+
+      </div>
+
+
+      <div class="detail-block">
+
+        <span>Approval Required</span>
+
+        <strong>
+          {{ selectedPolicy.requiresApproval ? 'Yes' : 'No' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- WAR REFERRAL INFORMATION -->
+
+    <div
+      class="approval-notice"
+      *ngIf="selectedPolicy.requiresApproval">
+
+      <div class="notice-icon">
+        !
+      </div>
+
+      <div>
+
+        <strong>
+          Approver review required
+        </strong>
+
+        <span>
+          This policy requires approval because the travel destination
+          matched a configured war geography or related geography.
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,290 @@
+<div class="dashboard-page">
+
+  <!-- =========================
+       WELCOME
+       ========================= -->
+
+  <section class="welcome-section">
+
+    <div>
+
+      <span class="eyebrow">
+        POLICY APPROVAL
+      </span>
+
+      <h1>Approver Dashboard</h1>
+
+      <p>
+        Review travel policies referred for war-related
+        or related-geography approval.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="primary-action"
+      (click)="goToInbox()">
+
+      <span>View</span>
+
+      Approval Inbox
+
+      <span class="arrow">→</span>
+
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       SUMMARY
+       ========================= -->
+
+  <section class="stats-grid">
+
+    <div class="stat-card">
+
+      <div class="stat-top">
+
+        <span>Pending Approval</span>
+
+        <div class="stat-icon pending-icon">
+          !
+        </div>
+
+      </div>
+
+      <strong>08</strong>
+
+      <small>
+        Policies waiting for your decision
+      </small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-top">
+
+        <span>Approved</span>
+
+        <div class="stat-icon approved-icon">
+          ✓
+        </div>
+
+      </div>
+
+      <strong>42</strong>
+
+      <small>
+        Policies approved
+      </small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-top">
+
+        <span>Rejected</span>
+
+        <div class="stat-icon rejected-icon">
+          ×
+        </div>
+
+      </div>
+
+      <strong>03</strong>
+
+      <small>
+        Policies rejected
+      </small>
+
+    </div>
+
+
+    <div class="stat-card">
+
+      <div class="stat-top">
+
+        <span>Today's Reviews</span>
+
+        <div class="stat-icon review-icon">
+          ✓
+        </div>
+
+      </div>
+
+      <strong>05</strong>
+
+      <small>
+        Decisions completed today
+      </small>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       APPROVAL WORKSPACE
+       ========================= -->
+
+  <section class="workspace-section">
+
+    <div class="section-heading">
+
+      <div>
+
+        <span class="section-label">
+          APPROVAL WORKSPACE
+        </span>
+
+        <h2>Review Policies</h2>
+
+      </div>
+
+    </div>
+
+
+    <div class="workspace-card"
+         (click)="goToInbox()">
+
+      <div class="main-icon">
+        !
+      </div>
+
+      <div class="workspace-content">
+
+        <div class="title-row">
+
+          <div>
+            <h3>Approval Inbox</h3>
+
+            <p>
+              View policies referred to the Approver group
+              and take the required action.
+            </p>
+          </div>
+
+          <div class="pending-badge">
+            8 Pending
+          </div>
+
+        </div>
+
+        <span class="workspace-link">
+          Open approval inbox
+          <span>→</span>
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       APPROVAL PROCESS
+       ========================= -->
+
+  <section class="process-card">
+
+    <div class="process-header">
+
+      <span class="section-label">
+        APPROVAL PROCESS
+      </span>
+
+      <h2>How referred policies are handled</h2>
+
+    </div>
+
+
+    <div class="process-steps">
+
+      <div class="process-step">
+
+        <div class="step-number">
+          1
+        </div>
+
+        <div>
+          <strong>Policy Referred</strong>
+
+          <span>
+            War or related geography detected
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div class="process-step">
+
+        <div class="step-number">
+          2
+        </div>
+
+        <div>
+          <strong>Review</strong>
+
+          <span>
+            Check policy and travel details
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div class="process-step">
+
+        <div class="step-number">
+          3
+        </div>
+
+        <div>
+          <strong>Decision</strong>
+
+          <span>
+            Approve or reject with reason
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="step-line"></div>
+
+
+      <div class="process-step">
+
+        <div class="step-number">
+          4
+        </div>
+
+        <div>
+          <strong>Policy Status</strong>
+
+          <span>
+            Issued or rejected
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

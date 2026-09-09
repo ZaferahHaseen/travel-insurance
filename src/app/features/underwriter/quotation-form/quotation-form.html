@@ -1,0 +1,658 @@
+<div class="quotation-page">
+
+  <!-- =====================================================
+       TOP SECTION
+       ===================================================== -->
+
+  <div class="page-heading">
+
+    <div class="heading-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span>←</span>
+        Back
+
+      </button>
+
+      <div class="heading-content">
+
+        <span class="eyebrow">
+          UNDERWRITING WORKSPACE
+        </span>
+
+        <h1>
+          New Quotation
+        </h1>
+
+        <p>
+          Capture the traveller and trip details to create a new
+          travel insurance quotation.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="heading-action">
+
+      <span class="draft-indicator">
+        <span class="draft-dot"></span>
+        New Draft
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       SUCCESS MESSAGE
+       ===================================================== -->
+
+  <div
+    class="success-banner"
+    *ngIf="saved">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <div class="success-content">
+
+      <strong>
+        Quotation created successfully
+      </strong>
+
+      <span>
+        {{ quotationNumber }} has been saved as a draft.
+      </span>
+
+    </div>
+
+    <button
+      type="button"
+      class="success-action"
+      (click)="viewQuotations()">
+
+      View Quotations →
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       FORM
+       ===================================================== -->
+
+  <form
+    class="quotation-form"
+    (ngSubmit)="saveQuotation()"
+    novalidate>
+
+
+    <!-- ===================================================
+         TRAVELLER DETAILS
+         =================================================== -->
+
+    <section class="form-card">
+
+      <div class="section-header">
+
+        <div class="section-number">
+          01
+        </div>
+
+        <div>
+
+          <h2>
+            Traveller Details
+          </h2>
+
+          <p>
+            Enter the traveller's identification information.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="fields-grid">
+
+        <!-- Traveller Name -->
+
+        <div class="field">
+
+          <label for="travellerName">
+            Traveller Name
+            <span>*</span>
+          </label>
+
+          <input
+            id="travellerName"
+            type="text"
+            name="travellerName"
+            [(ngModel)]="formData.travellerName"
+            placeholder="Enter full name"
+            autocomplete="off"
+            [class.invalid]="
+              submitted &&
+              !formData.travellerName.trim()
+            " />
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.travellerName.trim()
+            ">
+
+            Traveller name is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- Date of Birth -->
+
+        <div class="field">
+
+          <label for="dateOfBirth">
+            Date of Birth
+            <span>*</span>
+          </label>
+
+          <input
+            id="dateOfBirth"
+            type="date"
+            name="dateOfBirth"
+            [(ngModel)]="formData.dateOfBirth"
+            [max]="today"
+            [class.invalid]="
+              submitted &&
+              !formData.dateOfBirth
+            " />
+
+          <small
+            class="field-hint"
+            *ngIf="travellerAge !== null">
+
+            Age: {{ travellerAge }} years
+
+          </small>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.dateOfBirth
+            ">
+
+            Date of birth is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- Passport Number -->
+
+        <div class="field">
+
+          <label for="passportNumber">
+            Passport Number
+            <span>*</span>
+          </label>
+
+          <input
+            id="passportNumber"
+            type="text"
+            name="passportNumber"
+            [(ngModel)]="formData.passportNumber"
+            placeholder="Enter passport number"
+            autocomplete="off"
+            [class.invalid]="
+              submitted &&
+              !formData.passportNumber.trim()
+            " />
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.passportNumber.trim()
+            ">
+
+            Passport number is required.
+
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         TRAVEL DETAILS
+         =================================================== -->
+
+    <section class="form-card">
+
+      <div class="section-header">
+
+        <div class="section-number">
+          02
+        </div>
+
+        <div>
+
+          <h2>
+            Travel Details
+          </h2>
+
+          <p>
+            Specify the origin, destination and travel period.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="fields-grid">
+
+        <!-- Origin Country -->
+
+        <div class="field">
+
+          <label for="originCountry">
+            Origin Country
+            <span>*</span>
+          </label>
+
+          <select
+            id="originCountry"
+            name="originCountry"
+            [(ngModel)]="formData.originCountry"
+            [class.invalid]="
+              submitted &&
+              !formData.originCountry
+            ">
+
+            <option value="">
+              Select origin country
+            </option>
+
+            <option
+              *ngFor="let country of countries"
+              [value]="country">
+
+              {{ country }}
+
+            </option>
+
+          </select>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.originCountry
+            ">
+
+            Origin country is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- Destination Country -->
+
+        <div class="field">
+
+          <label for="destinationCountry">
+            Destination Country
+            <span>*</span>
+          </label>
+
+          <select
+            id="destinationCountry"
+            name="destinationCountry"
+            [(ngModel)]="formData.destinationCountry"
+            [class.invalid]="
+              submitted &&
+              !formData.destinationCountry
+            ">
+
+            <option value="">
+              Select destination country
+            </option>
+
+            <option
+              *ngFor="let country of countries"
+              [value]="country">
+
+              {{ country }}
+
+            </option>
+
+          </select>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.destinationCountry
+            ">
+
+            Destination country is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- Destination City -->
+
+        <div class="field">
+
+          <label for="destinationCity">
+            Destination City
+            <span>*</span>
+          </label>
+
+          <input
+            id="destinationCity"
+            type="text"
+            name="destinationCity"
+            [(ngModel)]="formData.destinationCity"
+            placeholder="Enter destination city"
+            autocomplete="off"
+            [class.invalid]="
+              submitted &&
+              !formData.destinationCity.trim()
+            " />
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.destinationCity.trim()
+            ">
+
+            Destination city is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- Start Date -->
+
+        <div class="field">
+
+          <label for="travelStartDate">
+            Travel Start Date
+            <span>*</span>
+          </label>
+
+          <input
+            id="travelStartDate"
+            type="date"
+            name="travelStartDate"
+            [(ngModel)]="formData.travelStartDate"
+            [min]="today"
+            [class.invalid]="
+              submitted &&
+              !formData.travelStartDate
+            " />
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.travelStartDate
+            ">
+
+            Travel start date is required.
+
+          </small>
+
+        </div>
+
+
+        <!-- End Date -->
+
+        <div class="field">
+
+          <label for="travelEndDate">
+            Travel End Date
+            <span>*</span>
+          </label>
+
+          <input
+            id="travelEndDate"
+            type="date"
+            name="travelEndDate"
+            [(ngModel)]="formData.travelEndDate"
+            [min]="
+              formData.travelStartDate || today
+            "
+            [class.invalid]="
+              submitted &&
+              (
+                !formData.travelEndDate ||
+                (
+                  formData.travelStartDate &&
+                  formData.travelEndDate <
+                  formData.travelStartDate
+                )
+              )
+            " />
+
+          <small
+            class="field-hint"
+            *ngIf="
+              travelDays > 0
+            ">
+
+            {{ travelDays }} day{{ travelDays === 1 ? '' : 's' }}
+
+          </small>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              !formData.travelEndDate
+            ">
+
+            Travel end date is required.
+
+          </small>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              formData.travelStartDate &&
+              formData.travelEndDate &&
+              formData.travelEndDate <
+              formData.travelStartDate
+            ">
+
+            End date must be on or after the start date.
+
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         COVER & PREMIUM
+         =================================================== -->
+
+    <section class="form-card premium-card">
+
+      <div class="section-header">
+
+        <div class="section-number">
+          03
+        </div>
+
+        <div>
+
+          <h2>
+            Coverage & Premium
+          </h2>
+
+          <p>
+            Enter the requested sum insured and calculate the premium.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="premium-layout">
+
+        <!-- SUM INSURED -->
+
+        <div class="field">
+
+          <label for="sumInsured">
+            Sum Insured
+            <span>*</span>
+          </label>
+
+          <div class="input-with-prefix">
+
+            <span>
+              ₹
+            </span>
+
+            <input
+              id="sumInsured"
+              type="number"
+              name="sumInsured"
+              [(ngModel)]="formData.sumInsured"
+              min="1"
+              placeholder="Enter sum insured"
+              (input)="calculatePremium()"
+              [class.invalid]="
+                submitted &&
+                (
+                  !formData.sumInsured ||
+                  formData.sumInsured <= 0
+                )
+              " />
+
+          </div>
+
+          <small
+            class="error"
+            *ngIf="
+              submitted &&
+              (
+                !formData.sumInsured ||
+                formData.sumInsured <= 0
+              )
+            ">
+
+            Sum insured must be greater than 0.
+
+          </small>
+
+        </div>
+
+
+        <!-- PREMIUM -->
+
+        <div class="premium-result">
+
+          <div class="premium-result-top">
+
+            <span>
+              ESTIMATED PREMIUM
+            </span>
+
+            <span class="calculated-badge">
+              CALCULATED
+            </span>
+
+          </div>
+
+          <div class="premium-amount">
+
+            ₹{{ formData.premium | number:'1.0-0' }}
+
+          </div>
+
+          <p>
+            Final premium will follow the configured product rules.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FOOTER ACTIONS
+         =================================================== -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="goBack()">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="resetForm()">
+
+        Clear
+
+      </button>
+
+      <button
+        type="submit"
+        class="primary-button">
+
+        <span>
+          Save Quotation
+        </span>
+
+        <span class="button-arrow">
+          →
+        </span>
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

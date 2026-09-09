@@ -1,0 +1,377 @@
+<div class="login-page">
+
+  <!-- Background decoration -->
+  <div class="background-decoration">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="grid-pattern"></div>
+  </div>
+
+
+  <div class="login-layout">
+
+    <!-- =========================================
+         LEFT BRAND SECTION
+         ========================================= -->
+
+    <section class="brand-panel">
+
+      <div class="brand-content">
+
+        <div class="brand-logo">
+          <lucide-icon
+            [img]="Plane"
+            [size]="22"
+            [strokeWidth]="2.2">
+          </lucide-icon>
+        </div>
+
+        <div class="brand-name">
+          Travel<span>Sure</span>
+        </div>
+
+        <p class="brand-tagline">
+          Travel with confidence.
+          <br>
+          We protect your journey.
+        </p>
+
+        <div class="brand-divider"></div>
+
+        <div class="security-message">
+
+          <div class="security-icon">
+            <lucide-icon
+              [img]="ShieldCheck"
+              [size]="18">
+            </lucide-icon>
+          </div>
+
+          <div>
+            <strong>Secure Insurance Platform</strong>
+
+            <span>
+              Manage quotations, policies and approvals
+              from one secure workspace.
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="brand-footer">
+        <span>Travel Insurance Management System</span>
+        <span>© 2026 TravelSure</span>
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         RIGHT LOGIN SECTION
+         ========================================= -->
+
+    <section class="login-panel">
+
+      <div class="login-card">
+
+        <!-- Heading -->
+
+        <div class="login-heading">
+
+          <div class="mobile-logo">
+
+            <lucide-icon
+              [img]="Plane"
+              [size]="19">
+            </lucide-icon>
+
+          </div>
+
+          <div>
+
+            <h1>Welcome back</h1>
+
+            <p>
+              Sign in to continue to your workspace
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             ROLE SELECTOR
+             ===================================== -->
+
+        <div class="role-section">
+
+          <label class="section-label">
+            Sign in as
+          </label>
+
+          <div class="role-selector">
+
+            <!-- Underwriter -->
+
+            <button
+              type="button"
+              [class.active]="selectedRole === 'UNDERWRITER'"
+              (click)="selectRole('UNDERWRITER')">
+
+              <span class="role-icon">
+
+                <lucide-icon
+                  [img]="ShieldCheck"
+                  [size]="15">
+                </lucide-icon>
+
+              </span>
+
+              <span>Underwriter</span>
+
+            </button>
+
+
+            <!-- Admin -->
+
+            <button
+              type="button"
+              [class.active]="selectedRole === 'ADMIN'"
+              (click)="selectRole('ADMIN')">
+
+              <span class="role-icon">
+
+                <lucide-icon
+                  [img]="User"
+                  [size]="15">
+                </lucide-icon>
+
+              </span>
+
+              <span>Admin</span>
+
+            </button>
+
+
+            <!-- Approver -->
+
+            <button
+              type="button"
+              [class.active]="selectedRole === 'APPROVER'"
+              (click)="selectRole('APPROVER')">
+
+              <span class="role-icon">
+
+                <lucide-icon
+                  [img]="ShieldCheck"
+                  [size]="15">
+                </lucide-icon>
+
+              </span>
+
+              <span>Approver</span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- =====================================
+             LOGIN FORM
+             ===================================== -->
+
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="login()">
+
+
+          <!-- Username -->
+
+          <div class="form-field">
+
+            <label for="username">
+              Username
+            </label>
+
+            <div class="input-container">
+
+              <lucide-icon
+                class="input-icon"
+                [img]="User"
+                [size]="17"
+                [strokeWidth]="1.8">
+              </lucide-icon>
+
+              <input
+                id="username"
+                type="text"
+                formControlName="username"
+                placeholder="Enter your username"
+                autocomplete="username"
+              >
+
+            </div>
+
+            @if (
+              loginForm.get('username')?.touched &&
+              loginForm.get('username')?.invalid
+            ) {
+
+              <span class="field-error">
+                Username is required.
+              </span>
+
+            }
+
+          </div>
+
+
+          <!-- Password -->
+
+          <div class="form-field">
+
+            <div class="password-label-row">
+
+              <label for="password">
+                Password
+              </label>
+
+              <button
+                type="button"
+                class="forgot-button">
+                Forgot password?
+              </button>
+
+            </div>
+
+
+            <div class="input-container">
+
+              <lucide-icon
+                class="input-icon"
+                [img]="LockKeyhole"
+                [size]="17"
+                [strokeWidth]="1.8">
+              </lucide-icon>
+
+
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              >
+
+
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePassword()">
+
+                @if (showPassword) {
+
+                  <lucide-icon
+                    [img]="EyeOff"
+                    [size]="16">
+                  </lucide-icon>
+
+                }
+                @else {
+
+                  <lucide-icon
+                    [img]="Eye"
+                    [size]="16">
+                  </lucide-icon>
+
+                }
+
+              </button>
+
+            </div>
+
+
+            @if (
+              loginForm.get('password')?.touched &&
+              loginForm.get('password')?.invalid
+            ) {
+
+              <span class="field-error">
+                Password is required.
+              </span>
+
+            }
+
+          </div>
+
+
+          <!-- Remember me -->
+
+          <div class="remember-row">
+
+            <label class="remember-label">
+
+              <input type="checkbox">
+
+              <span>Remember me</span>
+
+            </label>
+
+          </div>
+
+
+          <!-- Sign in -->
+
+          <button
+            type="submit"
+            class="login-button"
+            [disabled]="loginForm.invalid || isLoading">
+
+            @if (isLoading) {
+
+              <span class="spinner"></span>
+
+              <span>Signing in...</span>
+
+            }
+            @else {
+
+              <span>Sign in</span>
+
+              <lucide-icon
+                [img]="ArrowRight"
+                [size]="17">
+              </lucide-icon>
+
+            }
+
+          </button>
+
+        </form>
+
+
+        <!-- Prototype notice -->
+
+        <div class="demo-notice">
+
+          <div class="demo-dot"></div>
+
+          <span>
+            Prototype mode — authentication is simulated
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>
