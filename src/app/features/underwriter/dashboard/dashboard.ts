@@ -17,7 +17,9 @@ interface ActivityData {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -60,11 +62,13 @@ export class Dashboard {
     }
   ];
 
+
   // =====================================================
   // POLICY DATA
   // =====================================================
 
   totalPolicies = 8;
+
 
   // =====================================================
   // QUOTATION ACTIVITY
@@ -101,6 +105,7 @@ export class Dashboard {
     }
   ];
 
+
   // =====================================================
   // DATE FILTER
   // =====================================================
@@ -113,47 +118,65 @@ export class Dashboard {
     'This Month'
   ];
 
-  // =====================================================
-  // CONSTRUCTOR
-  // =====================================================
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router
+  ) {}
+
 
   // =====================================================
   // COUNTS
   // =====================================================
 
   get totalQuotations(): number {
+
     return this.quotations.length;
+
   }
+
 
   get pendingQuotations(): number {
+
     return this.quotations.filter(
-      quotation => quotation.status === 'PENDING'
+      quotation =>
+        quotation.status === 'PENDING'
     ).length;
+
   }
+
 
   get inProgressQuotations(): number {
+
     return this.quotations.filter(
-      quotation => quotation.status === 'IN PROGRESS'
+      quotation =>
+        quotation.status === 'IN PROGRESS'
     ).length;
+
   }
 
+
   get completedQuotations(): number {
+
     return this.quotations.filter(
-      quotation => quotation.status === 'COMPLETED'
+      quotation =>
+        quotation.status === 'COMPLETED'
     ).length;
+
   }
+
 
   // =====================================================
   // ACTIVITY GRAPH
   // =====================================================
 
-  getActivityHeight(value: number): number {
+  getActivityHeight(
+    value: number
+  ): number {
 
     const maxValue = Math.max(
       ...this.quotationActivity.map(
-        activity => activity.quotations
+        activity =>
+          activity.quotations
       ),
       1
     );
@@ -161,7 +184,9 @@ export class Dashboard {
     return Math.round(
       (value / maxValue) * 100
     );
+
   }
+
 
   // =====================================================
   // PIE CHART
@@ -169,10 +194,13 @@ export class Dashboard {
 
   get workloadGradient(): string {
 
-    const total = this.totalQuotations;
+    const total =
+      this.totalQuotations;
 
     if (total === 0) {
+
       return '#e9eef3 0deg 360deg';
+
     }
 
     const pendingDegrees =
@@ -182,14 +210,17 @@ export class Dashboard {
       (this.inProgressQuotations / total) * 360;
 
     const completedStart =
-      pendingDegrees + progressDegrees;
+      pendingDegrees +
+      progressDegrees;
 
     return `
       #d89b32 0deg ${pendingDegrees}deg,
       #3977bd ${pendingDegrees}deg ${completedStart}deg,
       #277956 ${completedStart}deg 360deg
     `;
+
   }
+
 
   // =====================================================
   // NAVIGATION
@@ -203,6 +234,7 @@ export class Dashboard {
 
   }
 
+
   viewQuotations(): void {
 
     this.router.navigate([
@@ -210,6 +242,7 @@ export class Dashboard {
     ]);
 
   }
+
 
   viewPendingQuotations(): void {
 
@@ -224,6 +257,7 @@ export class Dashboard {
 
   }
 
+
   viewPolicies(): void {
 
     this.router.navigate([
@@ -232,8 +266,14 @@ export class Dashboard {
 
   }
 
-  changePeriod(period: string): void {
-    this.selectedPeriod = period;
+
+  changePeriod(
+    period: string
+  ): void {
+
+    this.selectedPeriod =
+      period;
+
   }
 
 }

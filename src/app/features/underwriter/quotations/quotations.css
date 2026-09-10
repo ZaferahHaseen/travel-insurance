@@ -798,3 +798,45 @@ tbody tr:hover {
   }
 
 }
+
+/* =====================================================
+   VIEW DETAILS BUTTON
+   ===================================================== */
+
+.view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-width: 92px;
+  height: 32px;
+  padding: 0 12px;
+
+  border: 1px solid #cbdbe7;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #286b9e;
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.view-button:hover {
+  background: #eef6fc;
+  border-color: #9fbcd2;
+  transform: translateY(-1px);
+}
+
+.view-button span {
+  font-size: 11px;
+}

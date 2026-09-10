@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,22 +7,34 @@ interface QuotationFormData {
   travellerName: string;
   dateOfBirth: string;
   passportNumber: string;
+
   originCountry: string;
   destinationCountry: string;
   destinationCity: string;
+
   travelStartDate: string;
   travelEndDate: string;
-  sumInsured: number | null;
+
+  medicalSumInsured: number | null;
+  deathSumInsured: number | null;
+  baggageSumInsured: number | null;
+
+  medicalPremium: number;
+  deathPremium: number;
+  baggagePremium: number;
+
   premium: number;
 }
 
 @Component({
   selector: 'app-quotation-form',
   standalone: true,
+
   imports: [
     CommonModule,
     FormsModule
   ],
+
   templateUrl: './quotation-form.html',
   styleUrl: './quotation-form.css'
 })
@@ -33,60 +45,82 @@ export class QuotationForm {
   // =====================================================
 
   formData: QuotationFormData = {
+
     travellerName: '',
     dateOfBirth: '',
     passportNumber: '',
+
     originCountry: '',
     destinationCountry: '',
     destinationCity: '',
+
     travelStartDate: '',
     travelEndDate: '',
-    sumInsured: null,
+
+    medicalSumInsured: null,
+    deathSumInsured: null,
+    baggageSumInsured: null,
+
+    medicalPremium: 0,
+    deathPremium: 0,
+    baggagePremium: 0,
+
     premium: 0
   };
 
 
   // =====================================================
-  // UI STATE
+  // FORM STATE
   // =====================================================
 
   submitted = false;
 
   saved = false;
 
-  quotationNumber = '';
+  quotationNumber = 'QT-2026-001';
 
 
   // =====================================================
-  // TODAY
+  // DATE
   // =====================================================
 
-  today = new Date()
-    .toISOString()
-    .split('T')[0];
+  today = this.getToday();
 
 
   // =====================================================
-  // COUNTRY LIST
+  // COUNTRIES
   // =====================================================
 
   countries: string[] = [
+
     'India',
-    'United States',
     'United Kingdom',
+    'United States',
     'Canada',
     'Australia',
     'Singapore',
     'United Arab Emirates',
-    'Germany',
     'France',
+    'Germany',
     'Italy',
     'Spain',
     'Switzerland',
     'Japan',
     'Thailand',
     'Malaysia'
+
   ];
+
+
+  // =====================================================
+  // COVERAGE RATES
+  // =====================================================
+
+  readonly medicalRate = 0.20;
+
+  readonly deathRate = 0.10;
+
+  readonly baggageRate = 0.05;
 
 
   // =====================================================
@@ -99,6 +133,28 @@ export class QuotationForm {
 
 
   // =====================================================
+  // TODAY
+  // =====================================================
+
+  private getToday(): string {
+
+    const date = new Date();
+
+    const year = date.getFullYear();
+
+    const month = String(
+      date.getMonth() + 1
+    ).padStart(2, '0');
+
+    const day = String(
+      date.getDate()
+    ).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+
+  // =====================================================
   // TRAVELLER AGE
   // =====================================================
 
@@ -108,31 +164,33 @@ export class QuotationForm {
       return null;
     }
 
-    const dob = new Date(
-      this.formData.dateOfBirth
-    );
+    const birthDate =
+      new Date(this.formData.dateOfBirth);
 
-    const today = new Date();
+    const today =
+      new Date();
 
     let age =
       today.getFullYear() -
-      dob.getFullYear();
+      birthDate.getFullYear();
 
     const monthDifference =
       today.getMonth() -
-      dob.getMonth();
+      birthDate.getMonth();
 
     if (
       monthDifference < 0 ||
       (
         monthDifference === 0 &&
-        today.getDate() < dob.getDate()
+        today.getDate() < birthDate.getDate()
       )
     ) {
+
       age--;
+
     }
 
-    return Math.max(age, 0);
+    return age >= 0 ? age : null;
   }
 
 
@@ -146,16 +204,16 @@ export class QuotationForm {
       !this.formData.travelStartDate ||
       !this.formData.travelEndDate
     ) {
+
       return 0;
+
     }
 
-    const start = new Date(
-      this.formData.travelStartDate
-    );
+    const start =
+      new Date(this.formData.travelStartDate);
 
-    const end = new Date(
-      this.formData.travelEndDate
-    );
+    const end =
+      new Date(this.formData.travelEndDate);
 
     const difference =
       end.getTime() -
@@ -173,73 +231,140 @@ export class QuotationForm {
 
 
   // =====================================================
-  // PREMIUM CALCULATION
+  // CALCULATE PREMIUM
   // =====================================================
 
   calculatePremium(): void {
 
-    if (!this.formData.sumInsured) {
+    const medicalAmount =
+      Number(this.formData.medicalSumInsured) || 0;
 
-      this.formData.premium = 0;
+    const deathAmount =
+      Number(this.formData.deathSumInsured) || 0;
 
-      return;
-    }
+    const baggageAmount =
+      Number(this.formData.baggageSumInsured) || 0;
 
-    /*
-     * Frontend demonstration calculation.
-     *
-     * Final premium will eventually be
-     * calculated/confirmed through the API.
-     */
 
-    const basePremium =
-      this.formData.sumInsured * 0.002;
+    // -----------------------------------------------------
+    // Individual premiums
+    // -----------------------------------------------------
 
-    const durationFactor =
-      this.travelDays > 0
-        ? Math.max(
-            this.travelDays / 7,
-            1
-          )
-        : 1;
+    this.formData.medicalPremium =
+      medicalAmount *
+      (this.medicalRate / 100);
+
+
+    this.formData.deathPremium =
+      deathAmount *
+      (this.deathRate / 100);
+
+
+    this.formData.baggagePremium =
+      baggageAmount *
+      (this.baggageRate / 100);
+
+
+    // -----------------------------------------------------
+    // Total premium
+    // -----------------------------------------------------
 
     this.formData.premium =
-      Math.round(
-        basePremium *
-        durationFactor
+      this.formData.medicalPremium +
+      this.formData.deathPremium +
+      this.formData.baggagePremium;
+
+
+    // Round to 2 decimal places
+
+    this.formData.medicalPremium =
+      Number(
+        this.formData.medicalPremium.toFixed(2)
+      );
+
+    this.formData.deathPremium =
+      Number(
+        this.formData.deathPremium.toFixed(2)
+      );
+
+    this.formData.baggagePremium =
+      Number(
+        this.formData.baggagePremium.toFixed(2)
+      );
+
+    this.formData.premium =
+      Number(
+        this.formData.premium.toFixed(2)
       );
   }
 
 
   // =====================================================
-  // FORM VALIDATION
+  // VALIDATION
   // =====================================================
 
-  get isFormValid(): boolean {
+  isFormValid(): boolean {
 
-    return !!(
-      this.formData.travellerName.trim() &&
+    const travellerValid =
+      !!this.formData.travellerName.trim();
 
-      this.formData.dateOfBirth &&
+    const dobValid =
+      !!this.formData.dateOfBirth;
 
-      this.formData.passportNumber.trim() &&
+    const passportValid =
+      !!this.formData.passportNumber.trim();
 
-      this.formData.originCountry &&
 
-      this.formData.destinationCountry &&
+    const originValid =
+      !!this.formData.originCountry;
 
-      this.formData.destinationCity.trim() &&
+    const destinationValid =
+      !!this.formData.destinationCountry;
 
-      this.formData.travelStartDate &&
+    const cityValid =
+      !!this.formData.destinationCity.trim();
 
-      this.formData.travelEndDate &&
 
-      this.formData.sumInsured &&
+    const startDateValid =
+      !!this.formData.travelStartDate;
 
-      this.formData.sumInsured > 0 &&
+    const endDateValid =
+      !!this.formData.travelEndDate;
 
+
+    const dateOrderValid =
+      !this.formData.travelStartDate ||
+      !this.formData.travelEndDate ||
       this.formData.travelEndDate >=
-        this.formData.travelStartDate
+      this.formData.travelStartDate;
+
+
+    const medicalValid =
+      !!this.formData.medicalSumInsured &&
+      this.formData.medicalSumInsured > 0;
+
+    const deathValid =
+      !!this.formData.deathSumInsured &&
+      this.formData.deathSumInsured > 0;
+
+    const baggageValid =
+      !!this.formData.baggageSumInsured &&
+      this.formData.baggageSumInsured > 0;
+
+
+    return (
+      travellerValid &&
+      dobValid &&
+      passportValid &&
+      originValid &&
+      destinationValid &&
+      cityValid &&
+      startDateValid &&
+      endDateValid &&
+      dateOrderValid &&
+      medicalValid &&
+      deathValid &&
+      baggageValid
     );
   }
 
@@ -252,35 +377,168 @@ export class QuotationForm {
 
     this.submitted = true;
 
-    if (!this.isFormValid) {
-      return;
-    }
-
     this.calculatePremium();
 
-    /*
-     * SRS:
-     *
-     * Quotation number format:
-     * QT-YYYY-######
-     *
-     * Temporary frontend generation.
-     * Backend should generate final number.
-     */
 
-    const year =
-      new Date().getFullYear();
+    if (!this.isFormValid()) {
 
-    const randomNumber =
-      Math.floor(
-        100000 +
-        Math.random() * 900000
-      );
+      return;
+
+    }
+
+
+    // Generate quotation number
+
+    const quotationCount =
+      Number(
+        localStorage.getItem(
+          'quotationCount'
+        ) || '0'
+      ) + 1;
+
+
+    localStorage.setItem(
+      'quotationCount',
+      quotationCount.toString()
+    );
+
 
     this.quotationNumber =
-      `QT-${year}-${randomNumber}`;
+      `QT-2026-${String(
+        quotationCount
+      ).padStart(3, '0')}`;
+
+
+    // -----------------------------------------------------
+    // Save quotation
+    // -----------------------------------------------------
+
+    const quotation = {
+
+      quotationNumber:
+        this.quotationNumber,
+
+      travellerName:
+        this.formData.travellerName,
+
+      dateOfBirth:
+        this.formData.dateOfBirth,
+
+      passportNumber:
+        this.formData.passportNumber,
+
+      originCountry:
+        this.formData.originCountry,
+
+      destinationCountry:
+        this.formData.destinationCountry,
+
+      destinationCity:
+        this.formData.destinationCity,
+
+      travelStartDate:
+        this.formData.travelStartDate,
+
+      travelEndDate:
+        this.formData.travelEndDate,
+
+      travelDays:
+        this.travelDays,
+
+      coverages: [
+
+        {
+          coverage: 'Medical',
+          sumInsured:
+            this.formData.medicalSumInsured,
+          rate:
+            this.medicalRate,
+          premium:
+            this.formData.medicalPremium
+        },
+
+        {
+          coverage: 'Death',
+          sumInsured:
+            this.formData.deathSumInsured,
+          rate:
+            this.deathRate,
+          premium:
+            this.formData.deathPremium
+        },
+
+        {
+          coverage: 'Baggage',
+          sumInsured:
+            this.formData.baggageSumInsured,
+          rate:
+            this.baggageRate,
+          premium:
+            this.formData.baggagePremium
+        }
+
+      ],
+
+      totalPremium:
+        this.formData.premium,
+
+      status:
+        'PENDING',
+
+      documentVerification:
+        false,
+
+      paymentCompleted:
+        false,
+
+      isRiskyRegion:
+        false,
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    // -----------------------------------------------------
+    // Get existing quotations
+    // -----------------------------------------------------
+
+    const existingQuotations =
+      JSON.parse(
+        localStorage.getItem(
+          'quotations'
+        ) || '[]'
+      );
+
+
+    existingQuotations.push(
+      quotation
+    );
+
+
+    // -----------------------------------------------------
+    // Save
+    // -----------------------------------------------------
+
+    localStorage.setItem(
+      'quotations',
+      JSON.stringify(
+        existingQuotations
+      )
+    );
+
 
     this.saved = true;
+
+
+    // Scroll to top after saving
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
   }
 
 
@@ -293,31 +551,33 @@ export class QuotationForm {
     this.formData = {
 
       travellerName: '',
-
       dateOfBirth: '',
-
       passportNumber: '',
 
       originCountry: '',
-
       destinationCountry: '',
-
       destinationCity: '',
 
       travelStartDate: '',
-
       travelEndDate: '',
 
-      sumInsured: null,
+      medicalSumInsured: null,
+      deathSumInsured: null,
+      baggageSumInsured: null,
+
+      medicalPremium: 0,
+      deathPremium: 0,
+      baggagePremium: 0,
 
       premium: 0
+
     };
+
 
     this.submitted = false;
 
     this.saved = false;
 
-    this.quotationNumber = '';
   }
 
 
@@ -328,7 +588,7 @@ export class QuotationForm {
   goBack(): void {
 
     this.router.navigate([
-      '/underwriter/dashboard'
+      '/underwriter/quotations'
     ]);
 
   }

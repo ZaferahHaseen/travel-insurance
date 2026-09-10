@@ -18,6 +18,7 @@
 
       </button>
 
+
       <div class="heading-content">
 
         <span class="eyebrow">
@@ -37,11 +38,15 @@
 
     </div>
 
+
     <div class="heading-action">
 
       <span class="draft-indicator">
+
         <span class="draft-dot"></span>
+
         New Draft
+
       </span>
 
     </div>
@@ -61,6 +66,7 @@
       ✓
     </div>
 
+
     <div class="success-content">
 
       <strong>
@@ -72,6 +78,7 @@
       </span>
 
     </div>
+
 
     <button
       type="button"
@@ -96,7 +103,7 @@
 
 
     <!-- ===================================================
-         TRAVELLER DETAILS
+         SECTION 01 - TRAVELLER DETAILS
          =================================================== -->
 
     <section class="form-card">
@@ -106,6 +113,7 @@
         <div class="section-number">
           01
         </div>
+
 
         <div>
 
@@ -124,14 +132,19 @@
 
       <div class="fields-grid">
 
-        <!-- Traveller Name -->
+
+        <!-- TRAVELLER NAME -->
 
         <div class="field">
 
           <label for="travellerName">
+
             Traveller Name
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="travellerName"
@@ -143,7 +156,9 @@
             [class.invalid]="
               submitted &&
               !formData.travellerName.trim()
-            " />
+            "
+          />
+
 
           <small
             class="error"
@@ -159,14 +174,18 @@
         </div>
 
 
-        <!-- Date of Birth -->
+        <!-- DATE OF BIRTH -->
 
         <div class="field">
 
           <label for="dateOfBirth">
+
             Date of Birth
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="dateOfBirth"
@@ -177,7 +196,9 @@
             [class.invalid]="
               submitted &&
               !formData.dateOfBirth
-            " />
+            "
+          />
+
 
           <small
             class="field-hint"
@@ -186,6 +207,7 @@
             Age: {{ travellerAge }} years
 
           </small>
+
 
           <small
             class="error"
@@ -201,14 +223,18 @@
         </div>
 
 
-        <!-- Passport Number -->
+        <!-- PASSPORT -->
 
         <div class="field">
 
           <label for="passportNumber">
+
             Passport Number
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="passportNumber"
@@ -220,7 +246,9 @@
             [class.invalid]="
               submitted &&
               !formData.passportNumber.trim()
-            " />
+            "
+          />
+
 
           <small
             class="error"
@@ -240,8 +268,9 @@
     </section>
 
 
+
     <!-- ===================================================
-         TRAVEL DETAILS
+         SECTION 02 - TRAVEL DETAILS
          =================================================== -->
 
     <section class="form-card">
@@ -251,6 +280,7 @@
         <div class="section-number">
           02
         </div>
+
 
         <div>
 
@@ -269,14 +299,19 @@
 
       <div class="fields-grid">
 
-        <!-- Origin Country -->
+
+        <!-- ORIGIN COUNTRY -->
 
         <div class="field">
 
           <label for="originCountry">
+
             Origin Country
+
             <span>*</span>
+
           </label>
+
 
           <select
             id="originCountry"
@@ -291,6 +326,7 @@
               Select origin country
             </option>
 
+
             <option
               *ngFor="let country of countries"
               [value]="country">
@@ -300,6 +336,7 @@
             </option>
 
           </select>
+
 
           <small
             class="error"
@@ -315,14 +352,19 @@
         </div>
 
 
-        <!-- Destination Country -->
+
+        <!-- DESTINATION COUNTRY -->
 
         <div class="field">
 
           <label for="destinationCountry">
+
             Destination Country
+
             <span>*</span>
+
           </label>
+
 
           <select
             id="destinationCountry"
@@ -337,6 +379,7 @@
               Select destination country
             </option>
 
+
             <option
               *ngFor="let country of countries"
               [value]="country">
@@ -346,6 +389,7 @@
             </option>
 
           </select>
+
 
           <small
             class="error"
@@ -361,14 +405,19 @@
         </div>
 
 
-        <!-- Destination City -->
+
+        <!-- DESTINATION CITY -->
 
         <div class="field">
 
           <label for="destinationCity">
+
             Destination City
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="destinationCity"
@@ -380,7 +429,9 @@
             [class.invalid]="
               submitted &&
               !formData.destinationCity.trim()
-            " />
+            "
+          />
+
 
           <small
             class="error"
@@ -396,14 +447,19 @@
         </div>
 
 
-        <!-- Start Date -->
+
+        <!-- START DATE -->
 
         <div class="field">
 
           <label for="travelStartDate">
+
             Travel Start Date
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="travelStartDate"
@@ -414,7 +470,9 @@
             [class.invalid]="
               submitted &&
               !formData.travelStartDate
-            " />
+            "
+          />
+
 
           <small
             class="error"
@@ -430,14 +488,19 @@
         </div>
 
 
-        <!-- End Date -->
+
+        <!-- END DATE -->
 
         <div class="field">
 
           <label for="travelEndDate">
+
             Travel End Date
+
             <span>*</span>
+
           </label>
+
 
           <input
             id="travelEndDate"
@@ -457,17 +520,19 @@
                   formData.travelStartDate
                 )
               )
-            " />
+            "
+          />
+
 
           <small
             class="field-hint"
-            *ngIf="
-              travelDays > 0
-            ">
+            *ngIf="travelDays > 0">
 
-            {{ travelDays }} day{{ travelDays === 1 ? '' : 's' }}
+            {{ travelDays }}
+            day{{ travelDays === 1 ? '' : 's' }}
 
           </small>
+
 
           <small
             class="error"
@@ -479,6 +544,7 @@
             Travel end date is required.
 
           </small>
+
 
           <small
             class="error"
@@ -501,17 +567,20 @@
     </section>
 
 
+
     <!-- ===================================================
-         COVER & PREMIUM
+         SECTION 03 - COVERAGE & PREMIUM
          =================================================== -->
 
     <section class="form-card premium-card">
+
 
       <div class="section-header">
 
         <div class="section-number">
           03
         </div>
+
 
         <div>
 
@@ -520,7 +589,7 @@
           </h2>
 
           <p>
-            Enter the requested sum insured and calculate the premium.
+            Define the coverage limits and calculate the quotation premium.
           </p>
 
         </div>
@@ -528,89 +597,318 @@
       </div>
 
 
-      <div class="premium-layout">
 
-        <!-- SUM INSURED -->
+      <!-- =================================================
+           COVERAGE TABLE
+           ================================================= -->
 
-        <div class="field">
+      <div class="coverage-table-wrapper">
 
-          <label for="sumInsured">
-            Sum Insured
-            <span>*</span>
-          </label>
-
-          <div class="input-with-prefix">
-
-            <span>
-              ₹
-            </span>
-
-            <input
-              id="sumInsured"
-              type="number"
-              name="sumInsured"
-              [(ngModel)]="formData.sumInsured"
-              min="1"
-              placeholder="Enter sum insured"
-              (input)="calculatePremium()"
-              [class.invalid]="
-                submitted &&
-                (
-                  !formData.sumInsured ||
-                  formData.sumInsured <= 0
-                )
-              " />
-
-          </div>
-
-          <small
-            class="error"
-            *ngIf="
-              submitted &&
-              (
-                !formData.sumInsured ||
-                formData.sumInsured <= 0
-              )
-            ">
-
-            Sum insured must be greater than 0.
-
-          </small>
-
-        </div>
+        <table class="coverage-table">
 
 
-        <!-- PREMIUM -->
+          <!-- TABLE HEADER -->
 
-        <div class="premium-result">
+          <thead>
 
-          <div class="premium-result-top">
+            <tr>
 
-            <span>
-              ESTIMATED PREMIUM
-            </span>
+              <th>
+                Coverage
+              </th>
 
-            <span class="calculated-badge">
-              CALCULATED
-            </span>
+              <th>
+                Sum Insured
+              </th>
 
-          </div>
+              <th>
+                Rate
+              </th>
 
-          <div class="premium-amount">
+              <th>
+                Premium
+              </th>
 
-            ₹{{ formData.premium | number:'1.0-0' }}
+            </tr>
 
-          </div>
+          </thead>
 
-          <p>
-            Final premium will follow the configured product rules.
-          </p>
 
-        </div>
+
+          <!-- TABLE BODY -->
+
+          <tbody>
+
+
+            <!-- =========================================
+                 MEDICAL
+                 ========================================= -->
+
+            <tr>
+
+              <td>
+
+                <div class="coverage-name">
+
+                  <span class="coverage-icon medical">
+                    +
+                  </span>
+
+                  <span>
+                    Medical
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <div class="table-input">
+
+                  <span class="currency">
+                    ₹
+                  </span>
+
+
+                  <input
+                    type="number"
+                    name="medicalSumInsured"
+                    [(ngModel)]="formData.medicalSumInsured"
+                    placeholder="Enter amount"
+                    min="1"
+                    (input)="calculatePremium()"
+                  />
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <span class="rate">
+                  {{ medicalRate | number:'1.2-2' }}%
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <span class="premium-value">
+
+                  ₹{{ formData.medicalPremium | number:'1.2-2' }}
+
+                </span>
+
+              </td>
+
+            </tr>
+
+
+
+            <!-- =========================================
+                 DEATH
+                 ========================================= -->
+
+            <tr>
+
+              <td>
+
+                <div class="coverage-name">
+
+                  <span class="coverage-icon death">
+                    ◇
+                  </span>
+
+                  <span>
+                    Death
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <div class="table-input">
+
+                  <span class="currency">
+                    ₹
+                  </span>
+
+
+                  <input
+                    type="number"
+                    name="deathSumInsured"
+                    [(ngModel)]="formData.deathSumInsured"
+                    placeholder="Enter amount"
+                    min="1"
+                    (input)="calculatePremium()"
+                  />
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <span class="rate">
+                  {{ deathRate | number:'1.2-2' }}%
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <span class="premium-value">
+
+                  ₹{{ formData.deathPremium | number:'1.2-2' }}
+
+                </span>
+
+              </td>
+
+            </tr>
+
+
+
+            <!-- =========================================
+                 BAGGAGE
+                 ========================================= -->
+
+            <tr>
+
+              <td>
+
+                <div class="coverage-name">
+
+                  <span class="coverage-icon baggage">
+                    ▱
+                  </span>
+
+                  <span>
+                    Baggage
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <div class="table-input">
+
+                  <span class="currency">
+                    ₹
+                  </span>
+
+
+                  <input
+                    type="number"
+                    name="baggageSumInsured"
+                    [(ngModel)]="formData.baggageSumInsured"
+                    placeholder="Enter amount"
+                    min="1"
+                    (input)="calculatePremium()"
+                  />
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                <span class="rate">
+                  {{ baggageRate | number:'1.2-2' }}%
+                </span>
+
+              </td>
+
+
+              <td>
+
+                <span class="premium-value">
+
+                  ₹{{ formData.baggagePremium | number:'1.2-2' }}
+
+                </span>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+
+
+          <!-- =============================================
+               TOTAL PREMIUM
+               ============================================= -->
+
+          <tfoot>
+
+            <tr>
+
+              <td
+                colspan="3"
+                class="total-label">
+
+                TOTAL PREMIUM
+
+              </td>
+
+
+              <td class="total-value">
+
+                <div class="total-premium-box">
+
+                  <span class="total-currency">
+                    ₹
+                  </span>
+
+                  <span>
+                    {{ formData.premium | number:'1.2-2' }}
+                  </span>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tfoot>
+
+        </table>
+
+      </div>
+
+
+
+      <!-- PREMIUM INFORMATION -->
+
+      <div class="premium-note">
+
+        <span class="note-icon">
+          i
+        </span>
+
+        <span>
+          Premium is calculated automatically based on the
+          sum insured and configured coverage rates.
+        </span>
 
       </div>
 
     </section>
+
 
 
     <!-- ===================================================
@@ -618,6 +916,7 @@
          =================================================== -->
 
     <div class="form-actions">
+
 
       <button
         type="button"
@@ -628,6 +927,7 @@
 
       </button>
 
+
       <button
         type="button"
         class="secondary-button"
@@ -636,6 +936,7 @@
         Clear
 
       </button>
+
 
       <button
         type="submit"

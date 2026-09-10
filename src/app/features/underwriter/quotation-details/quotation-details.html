@@ -1,0 +1,827 @@
+<div class="quotation-details-page">
+
+  <!-- =====================================================
+       TOP HEADER
+       ===================================================== -->
+
+  <section class="details-header">
+
+    <div class="header-left">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()">
+
+        <span>←</span>
+
+        Back to Quotations
+
+      </button>
+
+
+      <div class="title-block">
+
+        <span class="eyebrow">
+          UNDERWRITING WORKSPACE
+        </span>
+
+        <h1>
+          Quotation Details
+        </h1>
+
+        <p>
+          Review quotation information, coverage,
+          documents and payment status.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      *ngIf="quotation"
+      class="header-status">
+
+      <span class="status-badge"
+            [class.completed]="
+              quotation.status === 'COMPLETED'
+            "
+            [class.issued]="
+              quotation.status === 'POLICY ISSUED'
+            "
+            [class.approval]="
+              quotation.status === 'APPROVAL REQUIRED'
+            "
+            [class.pending]="
+              quotation.status === 'PENDING'
+            ">
+
+        <span class="status-dot"></span>
+
+        {{ quotation.status }}
+
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       LOADING
+       ===================================================== -->
+
+  <div
+    *ngIf="loading"
+    class="loading-state">
+
+    Loading quotation details...
+
+  </div>
+
+
+  <!-- =====================================================
+       NOT FOUND
+       ===================================================== -->
+
+  <div
+    *ngIf="!loading && !quotation"
+    class="not-found-card">
+
+    <div class="not-found-icon">
+      !
+    </div>
+
+    <h2>
+      Quotation not found
+    </h2>
+
+    <p>
+      The requested quotation could not be found.
+    </p>
+
+    <button
+      type="button"
+      class="primary-button"
+      (click)="goBack()">
+
+      Back to Quotations
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       QUOTATION CONTENT
+       ===================================================== -->
+
+  <ng-container *ngIf="quotation">
+
+    <!-- ===================================================
+         QUOTATION SUMMARY
+         =================================================== -->
+
+    <section class="summary-card">
+
+      <div class="quotation-identity">
+
+        <div class="quotation-icon">
+          QT
+        </div>
+
+        <div>
+
+          <span class="small-label">
+            QUOTATION NUMBER
+          </span>
+
+          <h2>
+            {{ quotation.quotationNumber }}
+          </h2>
+
+          <span>
+            {{ quotation.insuranceType }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="premium-summary">
+
+        <span>
+          TOTAL PREMIUM
+        </span>
+
+        <strong>
+          ₹{{ totalPremium | number:'1.0-0' }}
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CUSTOMER + TRAVEL
+         =================================================== -->
+
+    <section class="information-grid">
+
+      <!-- CUSTOMER -->
+
+      <div class="detail-card">
+
+        <div class="card-heading">
+
+          <span class="card-icon">
+            ◉
+          </span>
+
+          <div>
+
+            <span class="section-label">
+              CUSTOMER
+            </span>
+
+            <h2>
+              Traveller Details
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-list">
+
+          <div class="detail-row">
+
+            <span>
+              Policyholder
+            </span>
+
+            <strong>
+              {{ quotation.policyholder }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Email
+            </span>
+
+            <strong>
+              {{ quotation.email }}
+            </strong>
+
+          </div>
+
+
+          <div
+            class="detail-row"
+            *ngIf="quotation.passportNumber">
+
+            <span>
+              Passport Number
+            </span>
+
+            <strong>
+              {{ quotation.passportNumber }}
+            </strong>
+
+          </div>
+
+
+          <div
+            class="detail-row"
+            *ngIf="quotation.dateOfBirth">
+
+            <span>
+              Date of Birth
+            </span>
+
+            <strong>
+              {{ quotation.dateOfBirth | date:'dd MMM yyyy' }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- TRAVEL -->
+
+      <div class="detail-card">
+
+        <div class="card-heading">
+
+          <span class="card-icon">
+            ✈
+          </span>
+
+          <div>
+
+            <span class="section-label">
+              TRIP
+            </span>
+
+            <h2>
+              Travel Details
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="details-list">
+
+          <div class="detail-row">
+
+            <span>
+              Origin
+            </span>
+
+            <strong>
+              {{ quotation.originCountry || 'India' }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Destination
+            </span>
+
+            <strong>
+              {{ quotation.destination }}
+            </strong>
+
+          </div>
+
+
+          <div
+            class="detail-row"
+            *ngIf="quotation.destinationCity">
+
+            <span>
+              City
+            </span>
+
+            <strong>
+              {{ quotation.destinationCity }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Travel Dates
+            </span>
+
+            <strong>
+              {{ quotation.travelDates }}
+            </strong>
+
+          </div>
+
+
+          <div
+            class="detail-row"
+            *ngIf="quotation.travelDays">
+
+            <span>
+              Duration
+            </span>
+
+            <strong>
+              {{ quotation.travelDays }} days
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         COVERAGE
+         =================================================== -->
+
+    <section class="coverage-card">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            COVERAGE
+          </span>
+
+          <h2>
+            Coverage & Premium Breakdown
+          </h2>
+
+          <p>
+            Selected travel insurance coverage and
+            corresponding premium calculation.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="coverage-table-wrapper"
+        *ngIf="quotation.coverages?.length">
+
+        <table class="coverage-table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                COVERAGE
+              </th>
+
+              <th>
+                SUM INSURED
+              </th>
+
+              <th>
+                RATE
+              </th>
+
+              <th>
+                PREMIUM
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr
+              *ngFor="
+                let coverage of quotation.coverages
+              ">
+
+              <td>
+
+                <div class="coverage-name">
+
+                  <strong>
+                    {{ coverage.name }}
+                  </strong>
+
+                  <span
+                    *ngIf="coverage.description">
+
+                    {{ coverage.description }}
+
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <td>
+
+                ₹{{ coverage.sumInsured | number }}
+
+              </td>
+
+
+              <td>
+
+                {{ coverage.rate }}%
+
+              </td>
+
+
+              <td>
+
+                <strong class="coverage-premium">
+
+                  ₹{{ coverage.premium | number:'1.0-0' }}
+
+                </strong>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+
+          <tfoot>
+
+            <tr>
+
+              <td
+                colspan="3"
+                class="total-label">
+
+                TOTAL PREMIUM
+
+              </td>
+
+              <td class="total-value">
+
+                ₹{{ totalPremium | number:'1.0-0' }}
+
+              </td>
+
+            </tr>
+
+          </tfoot>
+
+        </table>
+
+      </div>
+
+
+      <div
+        *ngIf="
+          !quotation.coverages ||
+          quotation.coverages.length === 0
+        "
+        class="no-coverages">
+
+        Coverage details are not available.
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PROCESS STATUS
+         =================================================== -->
+
+    <section class="process-card">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            PROCESS
+          </span>
+
+          <h2>
+            Quotation Processing
+          </h2>
+
+          <p>
+            Complete document verification and payment
+            before policy issuance.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="process-grid">
+
+        <!-- DOCUMENT -->
+
+        <div class="process-item">
+
+          <div class="process-icon document-icon">
+            ✓
+          </div>
+
+          <div class="process-content">
+
+            <span class="process-label">
+              DOCUMENT VERIFICATION
+            </span>
+
+            <h3>
+              Travel Documents
+            </h3>
+
+            <p>
+              Verify travel tickets and hotel tickets
+              submitted for the quotation.
+            </p>
+
+            <span
+              class="process-status"
+              [class.done]="
+                quotation.documentsVerified
+              "
+              [class.waiting]="
+                !quotation.documentsVerified
+              ">
+
+              <span></span>
+
+              {{
+                quotation.documentsVerified
+                  ? 'Verified'
+                  : 'Verification Pending'
+              }}
+
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="process-button"
+            (click)="verifyDocuments()">
+
+            {{
+              quotation.documentsVerified
+                ? 'Review Documents'
+                : 'Verify Documents'
+            }}
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="process-item">
+
+          <div class="process-icon payment-icon">
+            ₹
+          </div>
+
+          <div class="process-content">
+
+            <span class="process-label">
+              PAYMENT
+            </span>
+
+            <h3>
+              Premium Payment
+            </h3>
+
+            <p>
+              Complete payment for the calculated
+              quotation premium.
+            </p>
+
+            <span
+              class="process-status"
+              [class.done]="
+                quotation.paymentCompleted
+              "
+              [class.waiting]="
+                !quotation.paymentCompleted
+              ">
+
+              <span></span>
+
+              {{
+                quotation.paymentCompleted
+                  ? 'Payment Completed'
+                  : 'Payment Pending'
+              }}
+
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="process-button"
+            (click)="makePayment()">
+
+            {{
+              quotation.paymentCompleted
+                ? 'View Payment'
+                : 'Make Payment'
+            }}
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         RISK INFORMATION
+         =================================================== -->
+
+    <section class="risk-card">
+
+      <div class="risk-left">
+
+        <div class="risk-icon">
+          !
+        </div>
+
+        <div>
+
+          <span class="section-label">
+            RISK CHECK
+          </span>
+
+          <h2>
+            Region Assessment
+          </h2>
+
+          <p
+            *ngIf="!quotation.riskyRegion">
+
+            No risky or war-related region has been
+            identified for this quotation.
+
+          </p>
+
+          <p
+            *ngIf="quotation.riskyRegion">
+
+            This quotation involves a risky or
+            war-related region and requires approver review.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <span
+        class="risk-badge"
+        [class.risky]="quotation.riskyRegion"
+        [class.safe]="!quotation.riskyRegion">
+
+        {{
+          quotation.riskyRegion
+            ? 'APPROVAL REQUIRED'
+            : 'NORMAL REGION'
+        }}
+
+      </span>
+
+    </section>
+
+
+    <!-- ===================================================
+         ACTION AREA
+         =================================================== -->
+
+    <section class="action-card">
+
+      <div class="action-info">
+
+        <span class="section-label">
+          NEXT STEP
+        </span>
+
+        <h2>
+          {{
+            quotation.riskyRegion
+              ? 'Approver Review Required'
+              : 'Ready for Policy Conversion'
+          }}
+        </h2>
+
+        <p
+          *ngIf="
+            !quotation.documentsVerified ||
+            !quotation.paymentCompleted
+          ">
+
+          Complete document verification and payment
+          before converting this quotation into a policy.
+
+        </p>
+
+        <p
+          *ngIf="
+            quotation.documentsVerified &&
+            quotation.paymentCompleted &&
+            !quotation.riskyRegion
+          ">
+
+          All required processes are complete.
+          This quotation can now be converted into a policy.
+
+        </p>
+
+        <p
+          *ngIf="
+            quotation.documentsVerified &&
+            quotation.paymentCompleted &&
+            quotation.riskyRegion
+          ">
+
+          Documents and payment are complete, but this
+          quotation must be sent to the approver because
+          the destination is classified as risky.
+
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="convert-button"
+        [disabled]="
+          !quotation.documentsVerified ||
+          !quotation.paymentCompleted
+        "
+        (click)="convertToPolicy()">
+
+        {{
+          quotation.riskyRegion
+            ? 'Send to Approver'
+            : 'Convert to Policy'
+        }}
+
+        <span>
+          →
+        </span>
+
+      </button>
+
+    </section>
+
+  </ng-container>
+
+</div>

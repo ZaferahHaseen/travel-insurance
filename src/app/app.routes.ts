@@ -96,27 +96,27 @@ export const routes: Routes = [
       // /underwriter/quotations
       {
         path: 'quotations',
+        loadComponent: () =>
+          import('./features/underwriter/quotations/quotations')
+            .then(m => m.Quotations)
+      },
 
-        children: [
+      // IMPORTANT:
+      // This must come BEFORE :quotationNumber
+      // /underwriter/quotations/new
+      {
+        path: 'quotations/new',
+        loadComponent: () =>
+          import('./features/underwriter/quotation-form/quotation-form')
+            .then(m => m.QuotationForm)
+      },
 
-          // /underwriter/quotations
-          {
-            path: '',
-            pathMatch: 'full',
-            loadComponent: () =>
-              import('./features/underwriter/quotations/quotations')
-                .then(m => m.Quotations)
-          },
-
-          // /underwriter/quotations/new
-          {
-            path: 'new',
-            loadComponent: () =>
-              import('./features/underwriter/quotation-form/quotation-form')
-                .then(m => m.QuotationForm)
-          }
-
-        ]
+      // /underwriter/quotations/:quotationNumber
+      {
+        path: 'quotations/:quotationNumber',
+        loadComponent: () =>
+          import('./features/underwriter/quotation-details/quotation-details')
+            .then(m => m.QuotationDetails)
       },
 
       // /underwriter/policies
